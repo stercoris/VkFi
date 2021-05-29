@@ -12,11 +12,11 @@ export interface IButton {
 type CreateTextButtonFunc<Props> = (args: Props) => IButton | Promise<IButton>;
 
 export class TextButton<Props = void> {
+  // some weird shit idk u will get it after some time wathing
   public create: Props extends void
     ? () => IKeyboardProxyButton | Promise<IKeyboardProxyButton>
     : (props: Props) => IKeyboardProxyButton | Promise<IKeyboardProxyButton>;
 
-  private RawCreateButton: (props: Props) => IButton | Promise<IButton>;
   public Action: string;
   protected Command: string;
 
@@ -24,11 +24,9 @@ export class TextButton<Props = void> {
     const postCreateButton =
       typeof createFun === "function" ? createFun : () => createFun;
 
-    this.RawCreateButton = postCreateButton;
-
     //@ts-ignore
     this.create = async (props: Props) => {
-      const button = await this.RawCreateButton(props);
+      const button = await postCreateButton(props);
 
       Object.assign(button, {
         payload: {

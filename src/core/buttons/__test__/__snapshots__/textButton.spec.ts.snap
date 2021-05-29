@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Text Button Should generate correct button on 'Action' change 1`] = `
+exports[`Text Button should be generated correctly with 'Action' changed 1`] = `
 Object {
   "kind": "text",
   "options": Object {
@@ -14,26 +14,12 @@ Object {
 }
 `;
 
-exports[`Text Button Should generate correct button on 'Action' change 2`] = `
+exports[`Text Button should be generated correctly with simple non-argument constructor 1`] = `
 Object {
   "kind": "text",
   "options": Object {
-    "color": "negative",
-    "label": "Sas",
-    "payload": Object {
-      "action": "SAS ACTION",
-      "command": undefined,
-    },
-  },
-}
-`;
-
-exports[`Text Button Should work with parameters 1`] = `
-Object {
-  "kind": "text",
-  "options": Object {
-    "color": "negative",
-    "label": "Super sus",
+    "color": "primary",
+    "label": "Simple Button",
     "payload": Object {
       "action": undefined,
       "command": undefined,
@@ -42,12 +28,26 @@ Object {
 }
 `;
 
-exports[`Text Button Should work without parameters 1`] = `
+exports[`Text Button should be generated correctrly with non-parameters constructor 1`] = `
 Object {
   "kind": "text",
   "options": Object {
     "color": "negative",
     "label": "Sas",
+    "payload": Object {
+      "action": undefined,
+      "command": undefined,
+    },
+  },
+}
+`;
+
+exports[`Text Button should be generated correctrly with parameters constructor 1`] = `
+Object {
+  "kind": "text",
+  "options": Object {
+    "color": "negative",
+    "label": "Super sus",
     "payload": Object {
       "action": undefined,
       "command": undefined,
