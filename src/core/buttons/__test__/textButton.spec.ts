@@ -34,5 +34,4 @@ describe("Text Button", () => {
     Button.Action = "SAS ACTION";
     expect(await Button.create()).toMatchSnapshot();
   });
-
 });
