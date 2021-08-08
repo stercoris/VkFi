@@ -7,32 +7,31 @@ interface User {
   selectedWeek: "Red" | "Green";
 }
 
-const MainMenu = ({ selectedWeek, subscribed }: User) => {
+const MainMenu: React.FC<User> = ({ selectedWeek, subscribed }) => {
   return (
     <menu>
       <row>
-        <button label={"Schedule"} color={ButtonColor.POSITIVE} />
+        <button color={ButtonColor.POSITIVE}>Schedule</button>
         <button
-          label={`${selectedWeek} week`}
           color={
             selectedWeek === "Green"
               ? ButtonColor.POSITIVE
               : ButtonColor.NEGATIVE
           }
-        />
+        >{`${selectedWeek} week`}</button>
       </row>
       <row>
         {subscribed ? (
-          <button label="Unsubscribe" color={ButtonColor.NEGATIVE} />
+          <button color={ButtonColor.NEGATIVE}>Unsubscribe</button>
         ) : (
-          <button label="Subscribe" color={ButtonColor.POSITIVE} />
+          <button color={ButtonColor.POSITIVE}>Subscribe</button>
         )}
       </row>
     </menu>
   );
 };
 
-function log(keyboard: JSX.Element) {
+function log(keyboard: React.ReactElement<any, any> | null) {
   console.log(keyboard);
 }
 

@@ -1,14 +1,14 @@
-type MenuOrRow<PropsType> = (props: PropsType) => JSX.ButtonPayload;
-
 export const JSX = {
   createElement<T extends { [id: string]: string }>(
-    name: string,
+    name: "button" | "row" | "menu",
     props: T,
     ...content: string[]
   ) {
-    // console.log(content);
-    if (name === "button") return props;
-    else return content;
+    if (name === "button") {
+      const button = props as unknown as JSX.ButtonPayload;
+      button.label = button.label ?? content[0];
+      return button;
+    } else return content;
   },
 };
 
