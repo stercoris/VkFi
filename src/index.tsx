@@ -9,26 +9,33 @@ interface User {
   selectedWeek: "Red" | "Green";
 }
 
-function MainMenu({ selectedWeek, username, subscribed }: User) {
+const MainMenu = ({ selectedWeek, subscribed }: User) => {
   return (
     <Menu>
       <Row>
-        <button label={"Schedule"} color={ButtonColor.NEGATIVE} />
-        <button label={`${selectedWeek} week`} color={ButtonColor.NEGATIVE} />
+        <button label={"Schedule"} color={ButtonColor.POSITIVE} />
+        <button
+          label={`${selectedWeek} week`}
+          color={
+            selectedWeek === "Green"
+              ? ButtonColor.POSITIVE
+              : ButtonColor.NEGATIVE
+          }
+        />
       </Row>
       <Row>
-        <button
-          label={subscribed ? "Unsubscribe" : "Subscribe"}
-          color={ButtonColor.NEGATIVE}
-        />
-        <button label={`${username} profile`} color={ButtonColor.NEGATIVE} />
+        {subscribed ? (
+          <button label="Unsubscribe" color={ButtonColor.NEGATIVE} />
+        ) : (
+          <button label="Subscribe" color={ButtonColor.POSITIVE} />
+        )}
       </Row>
     </Menu>
   );
-}
+};
 
-function log(html: string) {
-  console.log(html);
+function log(keyboard: string) {
+  console.log(keyboard);
 }
 
 log(MainMenu({ selectedWeek: "Green", subscribed: false, username: "Dima" }));
