@@ -6,12 +6,14 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "postinstall": "patch-package",
     "build": "tsc --p tsconfig.json",
     "watch": "tsc-watch --p tsconfig.json --onSuccess \"nodemon ./build/index.js\""
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/node": "^16.4.13",
+    "@types/react": "^17.0.16",
     "babel-jest": "^27.0.1",
     "jest": "^27.0.1",
     "jest-environment-node": "^26.1.0",

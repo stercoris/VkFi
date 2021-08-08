@@ -1,7 +1,5 @@
-import JSX from "./core/factory/JSX";
-import { Row } from "./core/components/row/row";
 import { ButtonColor } from "vk-io";
-import { Menu } from "./core/components/menu/menu";
+import JSX from "./core/factory/JSX";
 
 interface User {
   subscribed: boolean;
@@ -11,8 +9,8 @@ interface User {
 
 const MainMenu = ({ selectedWeek, subscribed }: User) => {
   return (
-    <Menu>
-      <Row>
+    <menu>
+      <row>
         <button label={"Schedule"} color={ButtonColor.POSITIVE} />
         <button
           label={`${selectedWeek} week`}
@@ -22,19 +20,19 @@ const MainMenu = ({ selectedWeek, subscribed }: User) => {
               : ButtonColor.NEGATIVE
           }
         />
-      </Row>
-      <Row>
+      </row>
+      <row>
         {subscribed ? (
           <button label="Unsubscribe" color={ButtonColor.NEGATIVE} />
         ) : (
           <button label="Subscribe" color={ButtonColor.POSITIVE} />
         )}
-      </Row>
-    </Menu>
+      </row>
+    </menu>
   );
 };
 
-function log(keyboard: string) {
+function log(keyboard: JSX.Element) {
   console.log(keyboard);
 }
 
