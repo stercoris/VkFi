@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "module": "CommonJS",
-    "target": "es6",
+    "target": "ESNext",
     "jsx": "react",
     "moduleResolution": "node",
-    "jsxFactory": "JSX.createElement",
+    "jsxFactory": "R1IO.createElement",
+    "jsxFragmentFactory": "R1IO.Fragment",
     "removeComments": true,
     "sourceMap": true,
     "rootDir": "./src",

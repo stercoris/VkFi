@@ -1,38 +1,32 @@
-import { ButtonColor } from "vk-io";
-import JSX from "./core/factory/JSX";
+import { Router } from "./student/Router";
 
-interface User {
+export enum Menus {
+  MainMenu,
+  MailingMenu,
+}
+
+export interface User {
   subscribed: boolean;
   username: string;
   selectedWeek: "Red" | "Green";
+  morningMailingTime: number;
+  eveningMailingTime: number;
+  selectedMenu: Menus;
 }
-
-const MainMenu: React.FC<User> = ({ selectedWeek, subscribed }) => {
-  return (
-    <menu>
-      <row>
-        <button color={ButtonColor.POSITIVE}>Schedule</button>
-        <button
-          color={
-            selectedWeek === "Green"
-              ? ButtonColor.POSITIVE
-              : ButtonColor.NEGATIVE
-          }
-        >{`${selectedWeek} week`}</button>
-      </row>
-      <row>
-        {subscribed ? (
-          <button color={ButtonColor.NEGATIVE}>Unsubscribe</button>
-        ) : (
-          <button color={ButtonColor.POSITIVE}>Subscribe</button>
-        )}
-      </row>
-    </menu>
-  );
-};
 
 function log(keyboard: React.ReactElement<any, any> | null) {
   console.log(keyboard);
 }
 
-log(MainMenu({ selectedWeek: "Green", subscribed: false, username: "Dima" }));
+log(
+  Router({
+    user: {
+      selectedWeek: "Green",
+      subscribed: true,
+      username: "Dima",
+      eveningMailingTime: 18,
+      morningMailingTime: 8,
+      selectedMenu: Menus.MailingMenu,
+    },
+  })
+);
