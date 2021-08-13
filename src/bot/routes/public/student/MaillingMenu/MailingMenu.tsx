@@ -1,7 +1,7 @@
-import { User } from "../../index";
+import { User } from "../../../../../index";
 import { ButtonColor } from "vk-io";
-import { TimePickerFragment } from "./TimePicker/TimePicker";
-import { R1IO } from "../../core/R1IO";
+import { TimePickerFragment } from "../../../../components/TimePicker/TimePicker";
+import R1IO from "../../../../../core/R1IO";
 
 interface MailingMenuProps {
   user: User;

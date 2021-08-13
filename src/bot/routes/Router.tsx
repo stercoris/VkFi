@@ -1,6 +1,6 @@
-import { Menus, User } from "../index";
-import { MainMenu } from "./MainMenu/MainMenu";
-import { MailingMenu } from "./MaillingMenu/MailingMenu";
+import { Menus, User } from "../..";
+import { MailingMenu } from "./public/student/MaillingMenu/MailingMenu";
+import { MainMenu } from "./public/student/MainMenu/MainMenu";
 
 interface RouterProps {
   user: User;

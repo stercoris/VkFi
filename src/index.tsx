@@ -1,4 +1,4 @@
-import { Router } from "./student/Router";
+import { Router } from "./bot/routes/Router";
 
 export enum Menus {
   MainMenu,
