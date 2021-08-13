@@ -1,13 +1,13 @@
 import { ButtonColor } from "vk-io";
-import R1IO from "../../../../../core/R1IO";
-import { User } from "../../../../../index";
+import R1IO from "R1IO";
+import { User } from "index";
 
 interface MainMenuProps {
   user: User;
 }
 
 export const MainMenu: React.FC<MainMenuProps> = ({
-  user: { selectedWeek, subscribed },
+  user: { selectedWeek },
 }) => (
   <menu>
     <row>

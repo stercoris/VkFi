@@ -1,4 +1,4 @@
-import { Menus, User } from "../..";
+import { Menus, User } from "index";
 import { MailingMenu } from "./public/student/MaillingMenu/MailingMenu";
 import { MainMenu } from "./public/student/MainMenu/MainMenu";
 
