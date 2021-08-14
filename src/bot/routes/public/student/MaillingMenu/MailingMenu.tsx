@@ -3,6 +3,7 @@ import { TimePickerFragment } from "@Components/TimePicker/TimePicker";
 import R1IO from "R1IO";
 import { User } from "IUser";
 import { subscribe, unsubscribe } from "bot/rootMiddleware";
+import { GoBackButton } from "@Components/GoBackButton/GoBackButton";
 
 interface MailingMenuProps {
   user: User;
@@ -22,5 +23,8 @@ export const MailingMenu: React.FC<MailingMenuProps> = ({ user }) => (
       )}
     </row>
     <TimePickerFragment user={user} />
+    <row>
+      <GoBackButton />
+    </row>
   </menu>
 );

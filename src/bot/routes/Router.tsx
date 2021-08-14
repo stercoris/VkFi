@@ -2,7 +2,7 @@ import { User } from "IUser";
 import { MailingMenu } from "./public/student/MaillingMenu/MailingMenu";
 import { MainMenu } from "./public/student/MainMenu/MainMenu";
 
-interface RouterProps {
+export interface RouterProps {
   user: User;
 }
 

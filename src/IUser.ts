@@ -7,4 +7,5 @@ export interface User {
   morningMailingTime: number;
   eveningMailingTime: number;
   selectedMenu: Menus;
+  previousMenu: Menus;
 }

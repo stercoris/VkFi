@@ -1,7 +1,6 @@
+import { Middleware } from "R1IO";
 import { Menus, Router } from "bot/routes/Router";
 import { User } from "IUser";
-import { Middleware } from "R1IO";
-import { MessageContext } from "vk-io";
 
 export const fakeUser: User = {
   selectedWeek: "Green",
@@ -10,23 +9,15 @@ export const fakeUser: User = {
   eveningMailingTime: 18,
   morningMailingTime: 8,
   selectedMenu: Menus.MailingMenu,
+  previousMenu: Menus.MainMenu,
 };
 
 export const RootMiddleware = Middleware(Router, async (context) => {
   return { user: fakeUser };
 });
 
-const createSubscribeToMailingAction = (isSubscrubed: boolean) =>
-  RootMiddleware.createAction(async (context, { user }) => {
-    fakeUser.subscribed = isSubscrubed;
-    context.send(isSubscrubed ? "You are subscribed" : "You are unsubscribed");
-  });
-
-export const unsubscribe = createSubscribeToMailingAction(false);
-export const subscribe = createSubscribeToMailingAction(true);
-
 const createTimerAction = (time: number, dayTime: "morhing" | "evening") =>
-  RootMiddleware.createAction(async (context, { user }) => {
+  RootMiddleware.createAction(async (context) => {
     dayTime === "evening"
       ? (fakeUser.eveningMailingTime += time)
       : (fakeUser.morningMailingTime += time);
@@ -37,3 +28,19 @@ export const addOneHourEveneng = createTimerAction(1, "evening");
 export const substractOneHourEveneng = createTimerAction(-1, "evening");
 export const addOneHourMorning = createTimerAction(1, "morhing");
 export const substractOneHourMorning = createTimerAction(-1, "morhing");
+
+const createSubscribeToMailingAction = (isSubscrubed: boolean) =>
+  RootMiddleware.createAction(async (context) => {
+    fakeUser.subscribed = isSubscrubed;
+    context.send(isSubscrubed ? "You are subscribed" : "You are unsubscribed");
+  });
+
+export const unsubscribe = createSubscribeToMailingAction(false);
+export const subscribe = createSubscribeToMailingAction(true);
+
+export const goBackAction = RootMiddleware.createAction(async (context) => {
+  const buff = fakeUser.previousMenu;
+  fakeUser.previousMenu = fakeUser.selectedMenu;
+  fakeUser.selectedMenu = buff;
+  context.send("Go back action");
+});

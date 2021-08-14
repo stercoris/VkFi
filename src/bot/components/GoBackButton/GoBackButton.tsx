@@ -1,12 +1,13 @@
-import { User } from "IUser";
+import { goBackAction } from "bot/rootMiddleware";
 import R1IO from "R1IO";
+import { ButtonColor } from "vk-io";
 
-interface GoBackButtonProps {
-  user: User;
-}
+interface GoBackButtonProps {}
 
 export const GoBackButton: React.FC<GoBackButtonProps> = () => {
-  //TODO: THERE WILL BE SOME NAVIGATION LOGIC
-  let a = "Back";
-  return <button>{a}</button>;
+  return (
+    <button color={ButtonColor.NEGATIVE} onClick={goBackAction}>
+      BACK
+    </button>
+  );
 };

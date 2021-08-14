@@ -1,6 +1,6 @@
+import { RootMiddleware } from "bot/rootMiddleware";
 import { VK } from "vk-io";
 import { Config } from "config/Config";
-import { RootMiddleware } from "bot/rootMiddleware";
 
 const vk = new VK({
   token: Config.TOKEN,
