@@ -6,18 +6,13 @@ import {
 import { menuToKeyboardBuilder } from "jsxToKeyboard";
 import { IMessageContextSendOptions, MessageContext } from "vk-io";
 
-type InternalMessageContext = Pick<
-  MessageContext,
-  "send" | "peerId" | "messagePayload"
->;
-
 export const Middleware = <
   JSXComponentProps,
   InputContext extends MessageContext = MessageContext,
   OutputContext extends JSXComponentProps = JSXComponentProps
 >(
   keyboardBuilder: React.FC<JSXComponentProps>,
-  contextWorker: ContextWorker<InternalMessageContext, OutputContext>
+  contextWorker: ContextWorker<InputContext, OutputContext>
 ): IMiddleware<InputContext, OutputContext> => {
   const actions: ({
     do: SimpleAction<InputContext, OutputContext>;
