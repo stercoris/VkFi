@@ -1,4 +1,4 @@
-import { User } from "index";
+import { User } from "IUser";
 import R1IO from "R1IO";
 
 interface GoBackButtonProps {

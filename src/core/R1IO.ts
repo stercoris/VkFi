@@ -1,3 +1,4 @@
+export { Middleware } from "core/middleware/Middleware";
 import * as Factory from "./factory/factory";
 
 const R1IO = {

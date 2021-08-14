@@ -1,9 +1,14 @@
-import { Menus, User } from "index";
+import { User } from "IUser";
 import { MailingMenu } from "./public/student/MaillingMenu/MailingMenu";
 import { MainMenu } from "./public/student/MainMenu/MainMenu";
 
 interface RouterProps {
   user: User;
+}
+
+export enum Menus {
+  MainMenu = 2,
+  MailingMenu = 1,
 }
 
 export const Router: React.FC<RouterProps> = ({ user }) => {

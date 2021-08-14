@@ -1,6 +1,6 @@
 import { ButtonColor } from "vk-io";
 import R1IO from "R1IO";
-import { User } from "index";
+import { User } from "IUser";
 
 interface MainMenuProps {
   user: User;

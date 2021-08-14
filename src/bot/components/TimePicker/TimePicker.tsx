@@ -1,5 +1,12 @@
-import { User } from "index";
+import {
+  addOneHourEveneng,
+  addOneHourMorning,
+  substractOneHourEveneng,
+  substractOneHourMorning,
+} from "bot/rootMiddleware";
+import { User } from "IUser";
 import R1IO from "R1IO";
+import { ButtonColor } from "vk-io";
 
 interface TimePickerProps {
   user: User;
@@ -8,16 +15,20 @@ interface TimePickerProps {
 export const TimePickerFragment: React.FC<TimePickerProps> = ({ user }) => (
   <>
     <row>
-      <button>/\</button>
-      <button>/\</button>
+      <button onClick={addOneHourMorning}>▲</button>
+      <button onClick={addOneHourEveneng}>▲</button>
     </row>
     <row>
-      <button>{`${user.morningMailingTime}:00`}</button>
-      <button>{`${user.eveningMailingTime}:00`}</button>
+      <button
+        color={ButtonColor.SECONDARY}
+      >{`${user.morningMailingTime}:00`}</button>
+      <button
+        color={ButtonColor.SECONDARY}
+      >{`${user.eveningMailingTime}:00`}</button>
     </row>
     <row>
-      <button>\/</button>
-      <button>\/</button>
+      <button onClick={substractOneHourMorning}>▼</button>
+      <button onClick={substractOneHourEveneng}>▼</button>
     </row>
   </>
 );

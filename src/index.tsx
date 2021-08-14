@@ -1,32 +1,20 @@
-import { Router } from "./bot/routes/Router";
+import { VK } from "vk-io";
+import { Config } from "config/Config";
+import { RootMiddleware } from "bot/rootMiddleware";
 
-export enum Menus {
-  MainMenu,
-  MailingMenu,
-}
+const vk = new VK({
+  token: Config.TOKEN,
+  pollingGroupId: Config.GROUP_ID,
+});
 
-export interface User {
-  subscribed: boolean;
-  username: string;
-  selectedWeek: "Red" | "Green";
-  morningMailingTime: number;
-  eveningMailingTime: number;
-  selectedMenu: Menus;
-}
+const beautyLog = (message: string) =>
+  console.log("\x1b[31m", "Новое сообщение: ", "\x1b[0m", message);
 
-function log(keyboard: React.ReactElement<any, any> | null) {
-  console.log(keyboard);
-}
+(async () => {
+  vk.updates.on("message_new", async (context, next) => {
+    RootMiddleware.middleware(context, next);
+    beautyLog(JSON.stringify(context.text));
+  });
 
-log(
-  Router({
-    user: {
-      selectedWeek: "Green",
-      subscribed: true,
-      username: "Dima",
-      eveningMailingTime: 18,
-      morningMailingTime: 8,
-      selectedMenu: Menus.MailingMenu,
-    },
-  })
-);
+  vk.updates.start();
+})();

@@ -1,8 +1,8 @@
 diff --git a/node_modules/@types/react/index.d.ts b/node_modules/@types/react/index.d.ts
-index 68e59f1..6920706 100755
+index 68e59f1..458967f 100755
 --- a/node_modules/@types/react/index.d.ts
 +++ b/node_modules/@types/react/index.d.ts
-@@ -3064,186 +3064,28 @@ declare global {
+@@ -3064,186 +3064,38 @@ declare global {
          interface IntrinsicAttributes extends React.Attributes { }
          interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
  
@@ -13,14 +13,24 @@ index 68e59f1..6920706 100755
 +					POSITIVE = "positive",
 +				}
 +
++				type ActionPayload = {
++					name: string;
++				}
++				interface ButtonProps {
++					label: string;
++					color?: ButtonColor;
++					onClick?: ActionPayload;
++				}
++
 +				interface ButtonPayload {
 +					label: string;
 +					color?: ButtonColor;
-+					payload?: {
-+						action: string;
-+						uid: string;
-+					};
++					payload?: ActionPayload;
 +				}
++				type RowPayload = ButtonPayload[];
++				type MenuPayload = RowPayload[];
++
++
 +				type Button = React.ReactElement<ButtonPayload>;
 +				type Row = React.ReactElement<Button>;
 +
@@ -204,7 +214,7 @@ index 68e59f1..6920706 100755
 -            tspan: React.SVGProps<SVGTSpanElement>;
 -            use: React.SVGProps<SVGUseElement>;
 -            view: React.SVGProps<SVGViewElement>;
-+					button: Omit<ButtonPayload, 'label'> & ({label: string;} |  { children: string; });
++					button: Omit<ButtonProps, 'label'> & ({label: string;} |  { children: string; });
 +					row: {children: Button | Button[]}
 +					menu: {children: Row | Row[]}
          }

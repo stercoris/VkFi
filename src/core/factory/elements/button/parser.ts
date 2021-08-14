@@ -11,16 +11,12 @@ export type CreateButton = (
 export const ParseButton: CreateButton = (_, props, children) => {
   // base button component
 
-  const getDefaultColorAndContent = (): JSX.ButtonPayload => ({
-    label: children,
-    color: ButtonColor.PRIMARY,
-  });
-
-  const payload = props as unknown as JSX.ButtonPayload;
+  const buttonProps = props as unknown as JSX.ButtonProps;
 
   const button: JSX.ButtonPayload = {
-    ...getDefaultColorAndContent(),
-    ...payload,
+    label: buttonProps?.label ?? children,
+    color: buttonProps?.color ?? ButtonColor.PRIMARY,
+    payload: buttonProps?.onClick,
   };
 
   return button;
