@@ -10,6 +10,7 @@ export type ContextWorker<InputContext, OutputContext> = (
 
 export interface IMiddleware<InputContext, OutputContext> {
   createAction: (
+    name: string,
     action: SimpleAction<InputContext, OutputContext>
   ) => JSX.ActionPayload;
   middleware: ContextWorker<InputContext, OutputContext>;

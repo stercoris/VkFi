@@ -1,11 +1,8 @@
-import { fakeUser } from "bot/rootMiddleware";
 import {
   ContextWorker,
   IMiddleware,
   SimpleAction,
 } from "core/middleware/IMiddleware";
-import deepcopy from "deepcopy";
-import deepmerge from "deepmerge";
 import { menuToKeyboardBuilder } from "jsxToKeyboard";
 import { IMessageContextSendOptions, MessageContext } from "vk-io";
 
@@ -22,19 +19,20 @@ export const Middleware = <
   keyboardBuilder: React.FC<JSXComponentProps>,
   contextWorker: ContextWorker<InternalMessageContext, OutputContext>
 ): IMiddleware<InputContext, OutputContext> => {
-  let lastActionId = 0;
-
   const actions: ({
     do: SimpleAction<InputContext, OutputContext>;
   } & JSX.ActionPayload)[] = [];
   const createAction = (
+    name: string,
     action: SimpleAction<InputContext, OutputContext>
   ): JSX.ActionPayload => {
     const actionPayload: JSX.ActionPayload = {
-      name: `action #${lastActionId++}`,
+      name: `action #${name}`,
     };
     actions.push({ do: action, ...actionPayload });
-    return actionPayload;
+    return {
+      name: actionPayload.name,
+    };
   };
 
   const middleware: ContextWorker<InputContext, OutputContext> = async (

@@ -17,7 +17,7 @@ export const RootMiddleware = Middleware(Router, async (context) => {
 });
 
 const createTimerAction = (time: number, dayTime: "morhing" | "evening") =>
-  RootMiddleware.createAction(async (context) => {
+  RootMiddleware.createAction(`add ${time} to ${dayTime}`, async (context) => {
     dayTime === "evening"
       ? (fakeUser.eveningMailingTime += time)
       : (fakeUser.morningMailingTime += time);
@@ -30,17 +30,25 @@ export const addOneHourMorning = createTimerAction(1, "morhing");
 export const substractOneHourMorning = createTimerAction(-1, "morhing");
 
 const createSubscribeToMailingAction = (isSubscrubed: boolean) =>
-  RootMiddleware.createAction(async (context) => {
-    fakeUser.subscribed = isSubscrubed;
-    context.send(isSubscrubed ? "You are subscribed" : "You are unsubscribed");
-  });
+  RootMiddleware.createAction(
+    `set user subsribtion to ${isSubscrubed}`,
+    async (context) => {
+      fakeUser.subscribed = isSubscrubed;
+      context.send(
+        isSubscrubed ? "You are subscribed" : "You are unsubscribed"
+      );
+    }
+  );
 
 export const unsubscribe = createSubscribeToMailingAction(false);
 export const subscribe = createSubscribeToMailingAction(true);
 
-export const goBackAction = RootMiddleware.createAction(async (context) => {
-  const buff = fakeUser.previousMenu;
-  fakeUser.previousMenu = fakeUser.selectedMenu;
-  fakeUser.selectedMenu = buff;
-  context.send("Go back action");
-});
+export const goBackAction = RootMiddleware.createAction(
+  `go back`,
+  async (context) => {
+    const buff = fakeUser.previousMenu;
+    fakeUser.previousMenu = fakeUser.selectedMenu;
+    fakeUser.selectedMenu = buff;
+    context.send("Go back action");
+  }
+);
