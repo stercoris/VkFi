@@ -3,8 +3,11 @@ import {
   IMiddleware,
   SimpleAction,
 } from "core/middleware/IMiddleware";
-import { menuToKeyboardBuilder } from "jsxToKeyboard";
-import { IMessageContextSendOptions, MessageContext } from "vk-io";
+import {
+  IMessageContextSendOptions,
+  KeyboardBuilder,
+  MessageContext,
+} from "vk-io";
 
 export const Middleware = <
   JSXComponentProps,
@@ -39,9 +42,7 @@ export const Middleware = <
     const oldSend = context.send;
     context.send = async (text: string) => {
       const params: IMessageContextSendOptions = {
-        keyboard: menuToKeyboardBuilder({
-          menu: keyboardBuilder(ouptutContext) as unknown as JSX.MenuPayload,
-        }),
+        keyboard: keyboardBuilder(ouptutContext) as unknown as KeyboardBuilder,
       };
       return await oldSend.bind(context)(text, params);
     };

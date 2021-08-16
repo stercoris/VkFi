@@ -1,3 +1,5 @@
+import { menuToKeyboardBuilder } from "./jsxToKeyboard";
+import { KeyboardBuilder } from "vk-io";
 import { Row } from "../row/parser";
 
 export type Menu = (Row | Row[])[];
@@ -6,7 +8,7 @@ export type MenuParser = (
   name: "menu",
   props: null,
   ...children: Menu
-) => Row[];
+) => KeyboardBuilder;
 
 const insert = <T>(arr: T[], index: number, ...newItems: T[]) => [
   ...arr.slice(0, index),
@@ -28,5 +30,9 @@ export const ParseMenu: MenuParser = (_, __, ...children) => {
     (r) => r !== undefined
   );
 
-  return menuWithoutUndefinded;
+  const compiledMenu = menuToKeyboardBuilder({
+    menu: menuWithoutUndefinded,
+  });
+
+  return compiledMenu;
 };
