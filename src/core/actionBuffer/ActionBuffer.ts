@@ -1,4 +1,4 @@
-import { IAction } from "core/action/createAction";
+import { IAction } from "core/action/iAction";
 import { FindAndCall, IActionBuffer } from "core/actionBuffer/IActionBuffer";
 
 export const createActionBuffer = <InternalContext>(

@@ -1,14 +1,10 @@
+import {
+  ActionPayload,
+  IAction,
+  ParameterizedAction,
+  PayloadCreateFunc,
+} from "core/action/iAction";
 import { MessageContext } from "vk-io";
-
-interface ActionPayload<T> {
-  name: string;
-  params: T;
-}
-
-export interface IAction<KeyboardBuilderContext, T> {
-  do: ParameterizedAction<T, MessageContext, KeyboardBuilderContext>;
-  name: string;
-}
 
 export const actions: IAction<any, any>[] = [];
 
@@ -16,15 +12,6 @@ const checkIfActionAlreadyExist = (name: string) => {
   const isActionExists = actions.find((a) => a.name === name) !== undefined;
   return isActionExists;
 };
-
-type MaybePromise = Promise<unknown> | unknown;
-type PayloadCreateFunc<T> = (args: T) => ActionPayload<T>;
-
-export type ParameterizedAction<P, I, O> = (
-  props: P,
-  context: I,
-  keyboardBuilderProps: O
-) => MaybePromise;
 
 export const createParametarizedAction = <KeyboardBuilderContext, T = {}>(
   name: string,
@@ -40,5 +27,3 @@ export const createParametarizedAction = <KeyboardBuilderContext, T = {}>(
 
   return setup;
 };
-
-export type SimpleAction<I, O> = (context: I, props: O) => MaybePromise;
