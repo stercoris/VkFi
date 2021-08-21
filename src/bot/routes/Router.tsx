@@ -12,12 +12,12 @@ export enum Menus {
 }
 
 export const Router: React.FC<RouterProps> = ({ user }) => {
-  const SelectedMenu = new Map<Menus, React.FC<{ user: User }>>([
+  const selectedMenu = new Map<Menus, React.FC<{ user: User }>>([
     [Menus.MailingMenu, MailingMenu],
     [Menus.MainMenu, MainMenu],
   ]).get(user.selectedMenu);
 
-  if (!SelectedMenu) throw new Error("Menu not found ");
+  if (!selectedMenu) throw new Error("Menu not found ");
 
-  return SelectedMenu({ user });
+  return selectedMenu({ user });
 };

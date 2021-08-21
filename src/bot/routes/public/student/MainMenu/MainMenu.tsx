@@ -1,7 +1,6 @@
 import { ButtonColor } from "vk-io";
 import R1IO from "R1IO";
 import { User } from "IUser";
-import { GoBackButton } from "@Components/GoBackButton/GoBackButton";
 import { goToMenuAction } from "bot/actions/goBackNavigationAction";
 import { Menus } from "bot/routes/Router";
 

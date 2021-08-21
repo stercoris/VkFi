@@ -15,7 +15,7 @@ const checkIfActionAlreadyExist = (name: string) => {
 
 export const createParametarizedAction = <KeyboardBuilderContext, T = {}>(
   name: string,
-  action: ParameterizedAction<T, MessageContext, KeyboardBuilderContext>
+  action: ParameterizedAction<T, KeyboardBuilderContext>
 ): PayloadCreateFunc<T> => {
   if (checkIfActionAlreadyExist(name)) {
     throw new Error(`Parameterized action with name "${name}" already exist`);

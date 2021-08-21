@@ -1,8 +1,6 @@
 import {
-  addOneHourEveneng,
-  addOneHourMorning,
-  substractOneHourEveneng,
-  substractOneHourMorning,
+  changeEveningSubscribtionTime,
+  changeMorningSubscribtionTime,
 } from "bot/actions/timerAction";
 import { User } from "IUser";
 import R1IO from "R1IO";
@@ -15,8 +13,8 @@ interface TimePickerProps {
 export const TimePickerFragment: React.FC<TimePickerProps> = ({ user }) => (
   <>
     <row>
-      <button onClick={addOneHourMorning}>▲</button>
-      <button onClick={addOneHourEveneng}>▲</button>
+      <button onClick={changeMorningSubscribtionTime(1)}>▲</button>
+      <button onClick={changeEveningSubscribtionTime(1)}>▲</button>
     </row>
     <row>
       <button
@@ -27,8 +25,8 @@ export const TimePickerFragment: React.FC<TimePickerProps> = ({ user }) => (
       >{`${user.eveningMailingTime}:00`}</button>
     </row>
     <row>
-      <button onClick={substractOneHourMorning}>▼</button>
-      <button onClick={substractOneHourEveneng}>▼</button>
+      <button onClick={changeMorningSubscribtionTime(-1)}>▼</button>
+      <button onClick={changeEveningSubscribtionTime(-1)}>▼</button>
     </row>
   </>
 );

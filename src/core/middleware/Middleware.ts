@@ -2,21 +2,17 @@ import { actions } from "core/action/createAction";
 import { IBuilder } from "core/builder/IBuilder";
 import { IMiddleware } from "core/middleware/IMiddleware";
 import { createActionBuffer } from "R1IO";
-import { IMessageContextSendOptions, MessageContext } from "vk-io";
+import { IMessageContextSendOptions } from "vk-io";
 
 export const createMiddleware = <
   JSXComponentProps,
-  InputContext extends MessageContext = MessageContext,
   OutputContext extends JSXComponentProps = JSXComponentProps
 >(
   keyboardBuilder: IBuilder<JSXComponentProps>,
-  contextWorker: IMiddleware<InputContext, OutputContext>
-): IMiddleware<InputContext, OutputContext> => {
+  contextWorker: IMiddleware<OutputContext>
+): IMiddleware<OutputContext> => {
   const actionsBuffer = createActionBuffer(...actions);
-  const middleware: IMiddleware<InputContext, OutputContext> = async (
-    context,
-    next
-  ) => {
+  const middleware: IMiddleware<OutputContext> = async (context, next) => {
     const ouptutContext = await contextWorker(context, next);
 
     const oldSend = context.send;

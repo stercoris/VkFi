@@ -6,6 +6,6 @@ export const goToMenuAction = createParametarizedAction<RouterProps, Menus>(
   `go to menu`,
   async (menu, context) => {
     fakeUser.selectedMenu = menu;
-    context.send(`Welcome to ${menu}`);
+    context.send(`Welcome to ${Menus[menu]}`);
   }
 );
