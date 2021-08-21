@@ -1,18 +1,15 @@
 import { NextMiddleware } from "middleware-io";
 
-type NoContextChangeFunc = Promise<unknown> | unknown;
-export type SimpleAction<I, O> = (context: I, props: O) => NoContextChangeFunc;
+type MaybePromise = Promise<unknown> | unknown;
+
+export type SimpleAction<I, O> = (context: I, props: O) => MaybePromise;
 export type ParameterizedSimpleAction<P, I, O> = (
   props: P,
   context: I,
   keyboardBuilderProps: O
-) => NoContextChangeFunc;
+) => MaybePromise;
 
-export type ContextWorker<InputContext, OutputContext> = (
+export type IMiddleware<InputContext, OutputContext> = (
   context: InputContext,
   next: NextMiddleware
 ) => Promise<OutputContext>;
-
-export interface IMiddleware<InputContext, OutputContext> {
-  middleware: ContextWorker<InputContext, OutputContext>;
-}

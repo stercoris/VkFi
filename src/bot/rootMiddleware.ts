@@ -1,4 +1,4 @@
-import { Middleware } from "R1IO";
+import { createActionBuffer, createBuilder, createMiddleware } from "R1IO";
 import { Menus, Router } from "bot/routes/Router";
 import { User } from "IUser";
 import { createTimerAction } from "bot/actions/timerAction";
@@ -15,8 +15,16 @@ export const fakeUser: User = {
   previousMenu: Menus.MainMenu,
 };
 
-export const RootMiddleware = Middleware(
-  Router,
-  [createTimerAction, subscribeToMailingAction, goToMenuAction],
+const keyboardBuider = createBuilder(Router);
+
+const actionsBuffer = createActionBuffer(
+  createTimerAction,
+  subscribeToMailingAction,
+  goToMenuAction
+);
+
+export const RootMiddleware = createMiddleware(
+  keyboardBuider,
+  actionsBuffer,
   async () => ({ user: fakeUser })
 );

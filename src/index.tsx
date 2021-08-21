@@ -12,7 +12,7 @@ const beautyLog = (message: string) =>
 
 (async () => {
   vk.updates.on("message_new", async (context, next) => {
-    RootMiddleware.middleware(context, next);
+    RootMiddleware(context, next);
     beautyLog(JSON.stringify(context.text));
   });
 

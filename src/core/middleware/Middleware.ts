@@ -1,26 +1,19 @@
 import { IAction } from "core/action/createAction";
-import {
-  ContextWorker,
-  IMiddleware,
-  ParameterizedSimpleAction,
-  SimpleAction,
-} from "core/middleware/IMiddleware";
-import {
-  IMessageContextSendOptions,
-  KeyboardBuilder,
-  MessageContext,
-} from "vk-io";
+import { IActionBuffer } from "core/actionBuffer/IActionBuffer";
+import { IBuilder } from "core/builder/IBuilder";
+import { IMiddleware } from "core/middleware/IMiddleware";
+import { IMessageContextSendOptions, MessageContext } from "vk-io";
 
-export const Middleware = <
+export const createMiddleware = <
   JSXComponentProps,
   InputContext extends MessageContext = MessageContext,
   OutputContext extends JSXComponentProps = JSXComponentProps
 >(
-  keyboardBuilder: React.FC<JSXComponentProps>,
-  actions: IAction<OutputContext, any>[],
-  contextWorker: ContextWorker<InputContext, OutputContext>
+  keyboardBuilder: IBuilder<JSXComponentProps>,
+  actionsBuffer: IActionBuffer<OutputContext, any>,
+  contextWorker: IMiddleware<InputContext, OutputContext>
 ): IMiddleware<InputContext, OutputContext> => {
-  const middleware: ContextWorker<InputContext, OutputContext> = async (
+  const middleware: IMiddleware<InputContext, OutputContext> = async (
     context,
     next
   ) => {
@@ -29,7 +22,7 @@ export const Middleware = <
     const oldSend = context.send;
     context.send = async (text: string) => {
       const params: IMessageContextSendOptions = {
-        keyboard: keyboardBuilder(ouptutContext) as unknown as KeyboardBuilder,
+        keyboard: keyboardBuilder(ouptutContext),
       };
       return await oldSend.bind(context)(text, params);
     };
@@ -37,20 +30,25 @@ export const Middleware = <
     const payload = context.messagePayload as JSX.ActionPayload;
 
     console.log(payload);
-    if (payload) {
-      const action = actions.find((a) => a.name === payload.name);
+    if (!payload) {
+      await context.send("Fallback couse no payload was found");
+      throw new Error("Fallback couse no payload was found");
+    }
 
-      if (action) {
-        action.do(payload.params, context, ouptutContext);
-      } else {
-        await context.send("NOOO");
-      }
-    } else {
-      await context.send("NOOO");
+    const isActionFound = await actionsBuffer.findAndCall({
+      actionName: payload.name,
+      actionParams: payload.params,
+      context,
+      internalContext: ouptutContext,
+    });
+
+    if (!isActionFound) {
+      await context.send("Fallback couse no action was found");
+      throw new Error("Fallback couse no action was found");
     }
 
     return ouptutContext;
   };
 
-  return { middleware };
+  return middleware;
 };
