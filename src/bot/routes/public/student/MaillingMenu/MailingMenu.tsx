@@ -26,9 +26,7 @@ export const MailingMenu: React.FC<MailingMenuProps> = ({ user }) => (
     </row>
     <TimePickerFragment user={user} />
     <row>
-      <button onClick={goToMenuAction.setup(Menus.MainMenu)}>
-        MailingMenu
-      </button>
+      <button onClick={goToMenuAction(Menus.MainMenu)}>MailingMenu</button>
     </row>
   </menu>
 );

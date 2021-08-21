@@ -10,5 +10,5 @@ export const subscribeToMailingAction = createAction<RouterProps, boolean>(
   }
 );
 
-export const unsubscribe = subscribeToMailingAction.setup(false);
-export const subscribe = subscribeToMailingAction.setup(true);
+export const unsubscribe = subscribeToMailingAction(false);
+export const subscribe = subscribeToMailingAction(true);

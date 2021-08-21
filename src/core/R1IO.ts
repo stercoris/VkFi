@@ -1,6 +1,6 @@
 export { createMiddleware } from "core/middleware/Middleware";
 export { createBuilder } from "core/builder/Builder";
-export { createActionBuffer } from "core/actionBuffer/AtionBuffer";
+export { createActionBuffer } from "core/actionBuffer/ActionBuffer";
 // export { createAction } from "core/action/createAction";
 import * as Factory from "./factory/factory";
 

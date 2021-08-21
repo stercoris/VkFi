@@ -1,7 +1,7 @@
-import { IAction } from "core/action/createAction";
-import { IActionBuffer } from "core/actionBuffer/IActionBuffer";
+import { actions } from "core/action/createAction";
 import { IBuilder } from "core/builder/IBuilder";
 import { IMiddleware } from "core/middleware/IMiddleware";
+import { createActionBuffer } from "R1IO";
 import { IMessageContextSendOptions, MessageContext } from "vk-io";
 
 export const createMiddleware = <
@@ -10,9 +10,9 @@ export const createMiddleware = <
   OutputContext extends JSXComponentProps = JSXComponentProps
 >(
   keyboardBuilder: IBuilder<JSXComponentProps>,
-  actionsBuffer: IActionBuffer<OutputContext, any>,
   contextWorker: IMiddleware<InputContext, OutputContext>
 ): IMiddleware<InputContext, OutputContext> => {
+  const actionsBuffer = createActionBuffer(...actions);
   const middleware: IMiddleware<InputContext, OutputContext> = async (
     context,
     next

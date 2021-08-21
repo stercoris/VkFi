@@ -22,9 +22,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
       >{`${selectedWeek} week`}</button>
     </row>
     <row>
-      <button onClick={goToMenuAction.setup(Menus.MailingMenu)}>
-        MainMenu
-      </button>
+      <button onClick={goToMenuAction(Menus.MailingMenu)}>MainMenu</button>
     </row>
   </menu>
 );

@@ -17,19 +17,19 @@ export const createTimerAction = createAction<
   context.send("Your time was changed");
 });
 
-export const addOneHourEveneng = createTimerAction.setup({
+export const addOneHourEveneng = createTimerAction({
   time: 1,
   dayTime: "evening",
 });
-export const substractOneHourEveneng = createTimerAction.setup({
+export const substractOneHourEveneng = createTimerAction({
   time: -1,
   dayTime: "evening",
 });
-export const addOneHourMorning = createTimerAction.setup({
+export const addOneHourMorning = createTimerAction({
   time: 1,
   dayTime: "morhing",
 });
-export const substractOneHourMorning = createTimerAction.setup({
+export const substractOneHourMorning = createTimerAction({
   time: -1,
   dayTime: "morhing",
 });

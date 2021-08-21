@@ -1,6 +1,5 @@
 import { IAction } from "core/action/createAction";
 import { FindAndCall, IActionBuffer } from "core/actionBuffer/IActionBuffer";
-import { MessageContext } from "vk-io";
 
 export const createActionBuffer = <InternalContext>(
   ...actions: IAction<InternalContext, any>[]

@@ -8,15 +8,27 @@ interface ActionPayload<T> {
 
 export interface IAction<KeyboardBuilderContext, T> {
   do: ParameterizedSimpleAction<T, MessageContext, KeyboardBuilderContext>;
-  setup: (params: T) => ActionPayload<T>;
   name: string;
 }
+
+export const actions: IAction<any, any>[] = [];
+
+const checkIfActionAlreadyExist = (name: string) => {
+  const isActionExists = actions.find((a) => a.name === name) !== undefined;
+  return isActionExists;
+};
 
 export const createAction = <KeyboardBuilderContext, T = {}>(
   name: string,
   action: ParameterizedSimpleAction<T, MessageContext, KeyboardBuilderContext>
-): IAction<KeyboardBuilderContext, T> => {
+): ((params: T) => ActionPayload<T>) => {
   const setup = (params: T): ActionPayload<T> => ({ name, params });
 
-  return { do: action, setup, name };
+  if (checkIfActionAlreadyExist(name)) {
+    throw new Error(`Action with name "${name}" already exist`);
+  }
+
+  actions.push({ do: action, name });
+
+  return setup;
 };
