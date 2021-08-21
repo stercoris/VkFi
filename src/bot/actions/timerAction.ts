@@ -1,15 +1,35 @@
-// import { fakeUser, RootMiddleware } from "bot/rootMiddleware";
-// import { createAction } from "R1IO";
+import { fakeUser } from "bot/rootMiddleware";
+import { RouterProps } from "bot/routes/Router";
+import { createAction } from "core/action/createAction";
 
-// const createTimerAction = (time: number, dayTime: "morhing" | "evening") =>
-//   createAction(RootMiddleware, async (context) => {
-//     dayTime === "evening"
-//       ? (fakeUser.eveningMailingTime += time)
-//       : (fakeUser.morningMailingTime += time);
-//     context.send("SAS");
-//   });
+interface CreateTimerActionProps {
+  time: number;
+  dayTime: "morhing" | "evening";
+}
 
-// export const addOneHourEveneng = createTimerAction(1, "evening");
-// export const substractOneHourEveneng = createTimerAction(-1, "evening");
-// export const addOneHourMorning = createTimerAction(1, "morhing");
-// export const substractOneHourMorning = createTimerAction(-1, "morhing");
+export const createTimerAction = createAction<
+  RouterProps,
+  CreateTimerActionProps
+>(`change user mailing time`, async ({ dayTime, time }, context) => {
+  dayTime === "evening"
+    ? (fakeUser.eveningMailingTime += time)
+    : (fakeUser.morningMailingTime += time);
+  context.send("Your time was changed");
+});
+
+export const addOneHourEveneng = createTimerAction.setup({
+  time: 1,
+  dayTime: "evening",
+});
+export const substractOneHourEveneng = createTimerAction.setup({
+  time: -1,
+  dayTime: "evening",
+});
+export const addOneHourMorning = createTimerAction.setup({
+  time: 1,
+  dayTime: "morhing",
+});
+export const substractOneHourMorning = createTimerAction.setup({
+  time: -1,
+  dayTime: "morhing",
+});

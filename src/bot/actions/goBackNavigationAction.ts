@@ -1,8 +1,11 @@
-// import { fakeUser, RootMiddleware } from "bot/rootMiddleware";
+import { fakeUser } from "bot/rootMiddleware";
+import { Menus, RouterProps } from "bot/routes/Router";
+import { createAction } from "core/action/createAction";
 
-// export const goBackAction = RootMiddleware.createAction(async (context) => {
-//   const buff = fakeUser.previousMenu;
-//   fakeUser.previousMenu = fakeUser.selectedMenu;
-//   fakeUser.selectedMenu = buff;
-//   context.send("Go back action");
-// });
+export const goToMenuAction = createAction<RouterProps, Menus>(
+  `go to menu`,
+  async (menu, context) => {
+    fakeUser.selectedMenu = menu;
+    context.send(`Welcome to ${menu}`);
+  }
+);

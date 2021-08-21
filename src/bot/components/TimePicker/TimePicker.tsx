@@ -3,7 +3,7 @@ import {
   addOneHourMorning,
   substractOneHourEveneng,
   substractOneHourMorning,
-} from "bot/rootMiddleware";
+} from "bot/actions/timerAction";
 import { User } from "IUser";
 import R1IO from "R1IO";
 import { ButtonColor } from "vk-io";

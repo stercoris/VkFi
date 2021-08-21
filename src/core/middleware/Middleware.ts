@@ -1,6 +1,8 @@
+import { IAction } from "core/action/createAction";
 import {
   ContextWorker,
   IMiddleware,
+  ParameterizedSimpleAction,
   SimpleAction,
 } from "core/middleware/IMiddleware";
 import {
@@ -15,24 +17,9 @@ export const Middleware = <
   OutputContext extends JSXComponentProps = JSXComponentProps
 >(
   keyboardBuilder: React.FC<JSXComponentProps>,
+  actions: IAction<OutputContext, any>[],
   contextWorker: ContextWorker<InputContext, OutputContext>
 ): IMiddleware<InputContext, OutputContext> => {
-  const actions: ({
-    do: SimpleAction<InputContext, OutputContext>;
-  } & JSX.ActionPayload)[] = [];
-  const createAction = (
-    name: string,
-    action: SimpleAction<InputContext, OutputContext>
-  ): JSX.ActionPayload => {
-    const actionPayload: JSX.ActionPayload = {
-      name: `action #${name}`,
-    };
-    actions.push({ do: action, ...actionPayload });
-    return {
-      name: actionPayload.name,
-    };
-  };
-
   const middleware: ContextWorker<InputContext, OutputContext> = async (
     context,
     next
@@ -54,7 +41,7 @@ export const Middleware = <
       const action = actions.find((a) => a.name === payload.name);
 
       if (action) {
-        action.do(context, ouptutContext);
+        action.do(payload.params, context, ouptutContext);
       } else {
         await context.send("NOOO");
       }
@@ -65,5 +52,5 @@ export const Middleware = <
     return ouptutContext;
   };
 
-  return { createAction, middleware };
+  return { middleware };
 };
