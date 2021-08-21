@@ -1,8 +1,8 @@
 import { fakeUser } from "bot/rootMiddleware";
 import { Menus, RouterProps } from "bot/routes/Router";
-import { createAction } from "core/action/createAction";
+import { createParametarizedAction } from "core/action/createAction";
 
-export const goToMenuAction = createAction<RouterProps, Menus>(
+export const goToMenuAction = createParametarizedAction<RouterProps, Menus>(
   `go to menu`,
   async (menu, context) => {
     fakeUser.selectedMenu = menu;

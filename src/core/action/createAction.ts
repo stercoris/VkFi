@@ -1,4 +1,3 @@
-import { ParameterizedSimpleAction } from "core/middleware/IMiddleware";
 import { MessageContext } from "vk-io";
 
 interface ActionPayload<T> {
@@ -7,7 +6,7 @@ interface ActionPayload<T> {
 }
 
 export interface IAction<KeyboardBuilderContext, T> {
-  do: ParameterizedSimpleAction<T, MessageContext, KeyboardBuilderContext>;
+  do: ParameterizedAction<T, MessageContext, KeyboardBuilderContext>;
   name: string;
 }
 
@@ -18,17 +17,28 @@ const checkIfActionAlreadyExist = (name: string) => {
   return isActionExists;
 };
 
-export const createAction = <KeyboardBuilderContext, T = {}>(
-  name: string,
-  action: ParameterizedSimpleAction<T, MessageContext, KeyboardBuilderContext>
-): ((params: T) => ActionPayload<T>) => {
-  const setup = (params: T): ActionPayload<T> => ({ name, params });
+type MaybePromise = Promise<unknown> | unknown;
+type PayloadCreateFunc<T> = (args: T) => ActionPayload<T>;
 
+export type ParameterizedAction<P, I, O> = (
+  props: P,
+  context: I,
+  keyboardBuilderProps: O
+) => MaybePromise;
+
+export const createParametarizedAction = <KeyboardBuilderContext, T = {}>(
+  name: string,
+  action: ParameterizedAction<T, MessageContext, KeyboardBuilderContext>
+): PayloadCreateFunc<T> => {
   if (checkIfActionAlreadyExist(name)) {
-    throw new Error(`Action with name "${name}" already exist`);
+    throw new Error(`Parameterized action with name "${name}" already exist`);
   }
 
   actions.push({ do: action, name });
 
+  const setup = (params: T): ActionPayload<T> => ({ name, params });
+
   return setup;
 };
+
+export type SimpleAction<I, O> = (context: I, props: O) => MaybePromise;

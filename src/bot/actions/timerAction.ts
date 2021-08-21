@@ -1,16 +1,16 @@
 import { fakeUser } from "bot/rootMiddleware";
 import { RouterProps } from "bot/routes/Router";
-import { createAction } from "core/action/createAction";
+import { createParametarizedAction } from "core/action/createAction";
 
 interface CreateTimerActionProps {
   time: number;
   dayTime: "morhing" | "evening";
 }
 
-export const createTimerAction = createAction<
+export const createTimerAction = createParametarizedAction<
   RouterProps,
   CreateTimerActionProps
->(`change user mailing time`, async ({ dayTime, time }, context) => {
+>("change user mailing time", async ({ dayTime, time }, context) => {
   dayTime === "evening"
     ? (fakeUser.eveningMailingTime += time)
     : (fakeUser.morningMailingTime += time);
