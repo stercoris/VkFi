@@ -7,8 +7,8 @@ export interface RouterProps {
 }
 
 export enum Menus {
-  MainMenu = 2,
-  MailingMenu = 1,
+  MainMenu = "Main",
+  MailingMenu = "Mailing",
 }
 
 export const Router: React.FC<RouterProps> = ({ user }) => {

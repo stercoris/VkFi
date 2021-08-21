@@ -2,10 +2,8 @@ import { ButtonColor } from "vk-io";
 import { TimePickerFragment } from "@Components/TimePicker/TimePicker";
 import R1IO from "R1IO";
 import { User } from "IUser";
-import { GoBackButton } from "@Components/GoBackButton/GoBackButton";
 import { subscribe, unsubscribe } from "bot/actions/subscribeToMailingActions";
-import { Menus } from "bot/routes/Router";
-import { goToMenuAction } from "bot/actions/goBackNavigationAction";
+import { goToPrevMenuAction } from "bot/actions/goBackNavigationAction";
 
 interface MailingMenuProps {
   user: User;
@@ -26,7 +24,7 @@ export const MailingMenu: React.FC<MailingMenuProps> = ({ user }) => (
     </row>
     <TimePickerFragment user={user} />
     <row>
-      <button onClick={goToMenuAction(Menus.MainMenu)}>MailingMenu</button>
+      <button onClick={goToPrevMenuAction()}>BACK</button>
     </row>
   </menu>
 );

@@ -1,8 +1,13 @@
 import { MessageContext } from "vk-io";
 
-export interface ActionPayload<T> {
+export interface SimpleActionPayload {
+  name: string;
+  type: "action";
+}
+export interface ParameterizedActionPayload<T> {
   name: string;
   params: T;
+  type: "parameterizedAction";
 }
 
 type MaybePromise = Promise<unknown> | unknown;
@@ -13,11 +18,18 @@ export type ParameterizedAction<P, O> = (
   keyboardBuilderProps: O
 ) => MaybePromise;
 
-export type PayloadCreateFunc<T> = (args: T) => ActionPayload<T>;
+export type ParameterizedPayloadCreateFunc<T> = (
+  args: T
+) => ParameterizedActionPayload<T>;
 
-export type SimpleAction<I, O> = (context: I, props: O) => MaybePromise;
+export type SimpleAction<I> = (
+  context: MessageContext,
+  keyboardBuilderProps: I
+) => MaybePromise;
 
 export interface IAction<KeyboardBuilderContext, T> {
-  do: ParameterizedAction<T, KeyboardBuilderContext>;
+  do:
+    | ParameterizedAction<T, KeyboardBuilderContext>
+    | SimpleAction<KeyboardBuilderContext>;
   name: string;
 }

@@ -32,8 +32,7 @@ export const createMiddleware = <
     }
 
     const isActionFound = await actionsBuffer.findAndCall({
-      actionName: payload.name,
-      actionParams: payload.params,
+      actionPayload: payload,
       context,
       internalContext: ouptutContext,
     });

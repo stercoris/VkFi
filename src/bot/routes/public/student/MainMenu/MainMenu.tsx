@@ -1,8 +1,7 @@
 import { ButtonColor } from "vk-io";
 import R1IO from "R1IO";
 import { User } from "IUser";
-import { goToMenuAction } from "bot/actions/goBackNavigationAction";
-import { Menus } from "bot/routes/Router";
+import { goToPrevMenuAction } from "bot/actions/goBackNavigationAction";
 
 interface MainMenuProps {
   user: User;
@@ -21,7 +20,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
       >{`${selectedWeek} week`}</button>
     </row>
     <row>
-      <button onClick={goToMenuAction(Menus.MailingMenu)}>MainMenu</button>
+      <button onClick={goToPrevMenuAction()}>BACK</button>
     </row>
   </menu>
 );

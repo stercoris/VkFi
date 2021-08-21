@@ -1,8 +1,7 @@
 import { MessageContext } from "vk-io";
 
 export type FindAndCall<P, C> = (params: {
-  actionName: string;
-  actionParams: P;
+  actionPayload: JSX.ActionPayload;
   context: MessageContext;
   internalContext: C;
 }) => Promise<boolean>;

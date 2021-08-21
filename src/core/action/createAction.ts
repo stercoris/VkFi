@@ -1,10 +1,11 @@
 import {
-  ActionPayload,
+  ParameterizedActionPayload,
   IAction,
   ParameterizedAction,
-  PayloadCreateFunc,
+  ParameterizedPayloadCreateFunc,
+  SimpleAction,
+  SimpleActionPayload,
 } from "core/action/iAction";
-import { MessageContext } from "vk-io";
 
 export const actions: IAction<any, any>[] = [];
 
@@ -16,14 +17,37 @@ const checkIfActionAlreadyExist = (name: string) => {
 export const createParametarizedAction = <KeyboardBuilderContext, T = {}>(
   name: string,
   action: ParameterizedAction<T, KeyboardBuilderContext>
-): PayloadCreateFunc<T> => {
+): ParameterizedPayloadCreateFunc<T> => {
   if (checkIfActionAlreadyExist(name)) {
-    throw new Error(`Parameterized action with name "${name}" already exist`);
+    throw new Error(
+      `Simple or parameterized action with name "${name}" already exist`
+    );
   }
 
   actions.push({ do: action, name });
 
-  const setup = (params: T): ActionPayload<T> => ({ name, params });
+  const setup = (params: T): ParameterizedActionPayload<T> => ({
+    name,
+    params,
+    type: "parameterizedAction",
+  });
+
+  return setup;
+};
+
+export const createAction = <KeyboardBuilderContext>(
+  name: string,
+  action: SimpleAction<KeyboardBuilderContext>
+): (() => SimpleActionPayload) => {
+  if (checkIfActionAlreadyExist(name)) {
+    throw new Error(
+      `Simple or parameterized action with name "${name}" already exist`
+    );
+  }
+
+  actions.push({ do: action, name });
+
+  const setup = (): SimpleActionPayload => ({ name, type: "action" });
 
   return setup;
 };
