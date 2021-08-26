@@ -3,9 +3,9 @@ import { ButtonColor } from "vk-io";
 import { TimePickerFragment } from "@Components/TimePicker/TimePicker";
 import { subscribe, unsubscribe } from "bot/actions/subscribeToMailingActions";
 import { goToPrevMenuAction } from "bot/actions/goBackNavigationAction";
-import { RouterProps } from "bot/rootMiddleware";
+import { BotContext } from "bot/rootMiddleware";
 
-export const MailingMenu: React.FC<RouterProps> = ({ user }) => (
+export const MailingMenu: React.FC<BotContext> = ({ user }) => (
   <menu>
     <row>
       {user.subscribed ? (

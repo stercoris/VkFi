@@ -1,9 +1,9 @@
 import { ButtonColor } from "vk-io";
 import R1IO from "R1IO";
 import { goToPrevMenuAction } from "bot/actions/goBackNavigationAction";
-import { RouterProps } from "bot/rootMiddleware";
+import { BotContext } from "bot/rootMiddleware";
 
-export const MainMenu: React.FC<RouterProps> = ({ user: { selectedWeek } }) => (
+export const MainMenu: React.FC<BotContext> = ({ user: { selectedWeek } }) => (
   <menu>
     <row>
       <button color={ButtonColor.POSITIVE}>Schedule</button>

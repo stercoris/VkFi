@@ -1,4 +1,4 @@
-import { fakeUser, RouterProps } from "bot/rootMiddleware";
+import { fakeUser, BotContext } from "bot/rootMiddleware";
 import { createParametarizedAction } from "core/action/createAction";
 
 //TODO: WTF? REDO
@@ -12,7 +12,7 @@ const changeUserSubscriptionTime = (
 };
 
 export const changeEveningSubscribtionTime = createParametarizedAction<
-  RouterProps,
+  BotContext,
   number
 >("change user mailing evening time", async (time, context) => {
   changeUserSubscriptionTime("evening", time);
@@ -20,7 +20,7 @@ export const changeEveningSubscribtionTime = createParametarizedAction<
 });
 
 export const changeMorningSubscribtionTime = createParametarizedAction<
-  RouterProps,
+  BotContext,
   number
 >("change user mailing morning time", async (time, context) => {
   changeUserSubscriptionTime("morning", time);

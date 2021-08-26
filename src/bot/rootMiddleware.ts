@@ -3,7 +3,7 @@ import { User } from "IUser";
 import { MailingMenu } from "bot/routes/public/student/MaillingMenu/MailingMenu";
 import { MainMenu } from "bot/routes/public/student/MainMenu/MainMenu";
 
-export interface RouterProps {
+export interface BotContext {
   user: User;
 }
 
@@ -22,7 +22,7 @@ export const fakeUser: User = {
   previousMenu: Menus.MainMenu,
 };
 
-const router = createBuilder<RouterProps, Menus>(
+const router = createBuilder<BotContext, Menus>(
   {
     [Menus.MainMenu]: MainMenu,
     [Menus.MailingMenu]: MailingMenu,

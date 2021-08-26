@@ -1,4 +1,4 @@
-import { fakeUser, RouterProps } from "bot/rootMiddleware";
+import { fakeUser, BotContext } from "bot/rootMiddleware";
 import { createParametarizedAction } from "core/action/createAction";
 
 interface SubscribeToMailingActionProps {
@@ -6,7 +6,7 @@ interface SubscribeToMailingActionProps {
 }
 
 const subscribeToMailingAction = createParametarizedAction<
-  RouterProps,
+  BotContext,
   SubscribeToMailingActionProps
 >(`change user subscribtion status`, async ({ toSubscribe }, context) => {
   context.send("Hello");
