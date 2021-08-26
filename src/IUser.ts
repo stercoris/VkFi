@@ -1,4 +1,4 @@
-import { Menus } from "bot/routes/Router";
+import { Menus } from "bot/rootMiddleware";
 
 export interface User {
   subscribed: boolean;

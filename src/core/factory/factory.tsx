@@ -5,7 +5,7 @@ import { ParseRow, Row } from "./elements/row/parser";
 
 export const createElement = (
   name: string | Function | null,
-  props: JSX.ButtonPayload | null,
+  props: JSX.ButtonProps | null,
   ...children: string[] | JSX.ButtonPayload[] | Row[] | Row[][]
 ) => {
   if (name === "button") {

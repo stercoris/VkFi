@@ -1,15 +1,11 @@
+import R1IO from "R1IO";
 import { ButtonColor } from "vk-io";
 import { TimePickerFragment } from "@Components/TimePicker/TimePicker";
-import R1IO from "R1IO";
-import { User } from "IUser";
 import { subscribe, unsubscribe } from "bot/actions/subscribeToMailingActions";
 import { goToPrevMenuAction } from "bot/actions/goBackNavigationAction";
+import { RouterProps } from "bot/rootMiddleware";
 
-interface MailingMenuProps {
-  user: User;
-}
-
-export const MailingMenu: React.FC<MailingMenuProps> = ({ user }) => (
+export const MailingMenu: React.FC<RouterProps> = ({ user }) => (
   <menu>
     <row>
       {user.subscribed ? (

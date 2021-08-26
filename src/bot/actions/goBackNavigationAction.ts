@@ -1,13 +1,14 @@
-import { fakeUser } from "bot/rootMiddleware";
-import { RouterProps } from "bot/routes/Router";
+import { fakeUser, RouterProps } from "bot/rootMiddleware";
 import { createAction } from "core/action/createAction";
+import { User } from "IUser";
+
+const swapUserMenus = (u: User) =>
+  ([u.selectedMenu, u.previousMenu] = [u.previousMenu, u.selectedMenu]);
 
 export const goToPrevMenuAction = createAction<RouterProps>(
   `go back`,
   async (context) => {
-    const buff = fakeUser.selectedMenu;
-    fakeUser.selectedMenu = fakeUser.previousMenu;
-    fakeUser.previousMenu = buff;
+    swapUserMenus(fakeUser);
     context.send(`Welcome to ${fakeUser.selectedMenu}`);
   }
 );

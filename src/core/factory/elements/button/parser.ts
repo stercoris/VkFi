@@ -1,6 +1,6 @@
 import { ButtonColor } from "vk-io";
 
-export type Button = JSX.ButtonPayload;
+export type Button = JSX.ButtonProps;
 
 export type CreateButton = (
   name: "button",
@@ -11,12 +11,10 @@ export type CreateButton = (
 export const ParseButton: CreateButton = (_, props, children) => {
   // base button component
 
-  const buttonProps = props as unknown as JSX.ButtonProps;
-
   const button: JSX.ButtonPayload = {
-    label: buttonProps?.label ?? children,
-    color: buttonProps?.color ?? ButtonColor.PRIMARY,
-    payload: buttonProps?.onClick,
+    label: props?.label ?? children,
+    color: props?.color ?? ButtonColor.PRIMARY,
+    payload: props?.onClick,
   };
 
   return button;

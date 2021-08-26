@@ -1,7 +1,7 @@
-import { fakeUser } from "bot/rootMiddleware";
-import { RouterProps } from "bot/routes/Router";
+import { fakeUser, RouterProps } from "bot/rootMiddleware";
 import { createParametarizedAction } from "core/action/createAction";
 
+//TODO: WTF? REDO
 const changeUserSubscriptionTime = (
   dayTime: "morning" | "evening",
   time: number

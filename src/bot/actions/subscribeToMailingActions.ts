@@ -1,18 +1,21 @@
-import { fakeUser } from "bot/rootMiddleware";
-import { RouterProps } from "bot/routes/Router";
+import { fakeUser, RouterProps } from "bot/rootMiddleware";
 import { createParametarizedAction } from "core/action/createAction";
 
-export const subscribeToMailingAction = createParametarizedAction<
+interface SubscribeToMailingActionProps {
+  toSubscribe: boolean;
+}
+
+const subscribeToMailingAction = createParametarizedAction<
   RouterProps,
-  boolean
->(`change user subscribed time`, async (subscribed, context) => {
-  fakeUser.subscribed = subscribed;
+  SubscribeToMailingActionProps
+>(`change user subscribtion status`, async ({ toSubscribe }, context) => {
   context.send("Hello");
 
   setTimeout(() => {
-    context.send(subscribed ? "You are subscribed" : "You are unsubscribed");
+    fakeUser.subscribed = toSubscribe;
+    context.send(toSubscribe ? "You are subscribed" : "You are unsubscribed");
   }, 1000);
 });
 
-export const unsubscribe = subscribeToMailingAction(false);
-export const subscribe = subscribeToMailingAction(true);
+export const unsubscribe = subscribeToMailingAction({ toSubscribe: false });
+export const subscribe = subscribeToMailingAction({ toSubscribe: true });
