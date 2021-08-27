@@ -7,13 +7,12 @@ import { FindAndCall, IActionBuffer } from "core/actionBuffer/IActionBuffer";
 
 export const createActionBuffer = <InternalContext>(
   ...actions: IAction<InternalContext, any>[]
-): IActionBuffer<InternalContext, any> => {
-  const findAndCall: FindAndCall<any, InternalContext> = async ({
-    actionPayload,
-    context,
-    internalContext,
-  }) => {
-    const { name, type, params } = actionPayload;
+): IActionBuffer<InternalContext> => {
+  const findAndCall: FindAndCall<InternalContext> = async (
+    payload,
+    { context, builderContext }
+  ) => {
+    const { name, type, params } = payload;
 
     const action = actions.find((a) => a.name === name);
     if (!action) return false;
@@ -23,10 +22,10 @@ export const createActionBuffer = <InternalContext>(
         any,
         InternalContext
       >;
-      await parameterizedAction(params, context, internalContext);
+      await parameterizedAction(params, context, builderContext);
     } else {
       const simpleAction = action.do as SimpleAction<InternalContext>;
-      await simpleAction(context, internalContext);
+      await simpleAction(context, builderContext);
     }
 
     return true;

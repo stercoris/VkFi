@@ -1,8 +1,8 @@
 diff --git a/node_modules/@types/react/index.d.ts b/node_modules/@types/react/index.d.ts
-index 68e59f1..458967f 100755
+index 68e59f1..ccfa1ee 100755
 --- a/node_modules/@types/react/index.d.ts
 +++ b/node_modules/@types/react/index.d.ts
-@@ -3064,186 +3064,38 @@ declare global {
+@@ -3064,186 +3064,41 @@ declare global {
          interface IntrinsicAttributes extends React.Attributes { }
          interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
  
@@ -15,6 +15,8 @@ index 68e59f1..458967f 100755
 +
 +				type ActionPayload = {
 +					name: string;
++					params?: Object;
++					type: 'parameterizedAction' | 'action'
 +				}
 +				interface ButtonProps {
 +					label: string;
@@ -27,6 +29,7 @@ index 68e59f1..458967f 100755
 +					color?: ButtonColor;
 +					payload?: ActionPayload;
 +				}
++				
 +				type RowPayload = ButtonPayload[];
 +				type MenuPayload = RowPayload[];
 +

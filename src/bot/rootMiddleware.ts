@@ -2,6 +2,7 @@ import { createBuilder, createMiddleware } from "R1IO";
 import { User } from "IUser";
 import { MailingMenu } from "bot/routes/public/student/MaillingMenu/MailingMenu";
 import { MainMenu } from "bot/routes/public/student/MainMenu/MainMenu";
+import { goToPrevMenuAction } from "bot/actions/goBackNavigationAction";
 
 export interface BotContext {
   user: User;
@@ -24,8 +25,13 @@ export const fakeUser: User = {
 
 const router = createBuilder<BotContext, Menus>(
   {
-    [Menus.MainMenu]: MainMenu,
-    [Menus.MailingMenu]: MailingMenu,
+    [Menus.MainMenu]: {
+      build: MainMenu,
+      falldownAction: goToPrevMenuAction(),
+    },
+    [Menus.MailingMenu]: {
+      build: MailingMenu,
+    },
   },
   ({ user }) => user.selectedMenu
 );

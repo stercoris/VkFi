@@ -1,48 +1,44 @@
 import { actions } from "core/action/createAction";
 import { IBuilder } from "core/builder/IBuilder";
+import { apllyButtonActions } from "core/middleware/actions/applyActions";
+import { applyCustomSend } from "core/middleware/contextExtensions/send/send";
+import { ContextBundle } from "core/middleware/IContextBundle";
 import { IMiddleware } from "core/middleware/IMiddleware";
 import { createActionBuffer } from "R1IO";
-import { IMessageContextSendOptions } from "vk-io";
 
 export const createMiddleware = <
   JSXComponentProps,
   OutputContext extends JSXComponentProps = JSXComponentProps
 >(
-  keyboardBuilder: IBuilder<JSXComponentProps>,
+  getCurrentMenu: IBuilder<JSXComponentProps>,
   contextWorker: IMiddleware<OutputContext>
 ): IMiddleware<OutputContext> => {
   const actionsBuffer = createActionBuffer(...actions);
   const middleware: IMiddleware<OutputContext> = async (context, next) => {
-    const ouptutContext = await contextWorker(context, next);
-
-    const oldSend = context.send;
-    context.send = async (text: string) => {
-      const params: IMessageContextSendOptions = {
-        keyboard: keyboardBuilder(ouptutContext),
-      };
-      return await oldSend.bind(context)(text, params);
+    const builderContext = await contextWorker(context, next);
+    const contextBundle: ContextBundle<OutputContext> = {
+      context,
+      builderContext,
     };
 
-    const payload = context.messagePayload as JSX.ActionPayload;
+    const getCurrentMenuAndBuildKeyboard = (context: OutputContext) =>
+      getCurrentMenu(context).build(context);
 
-    console.log(payload);
-    if (!payload) {
+    applyCustomSend(getCurrentMenuAndBuildKeyboard, contextBundle);
+
+    console.log(context.messagePayload);
+
+    const actionStatus = await apllyButtonActions(actionsBuffer, contextBundle);
+
+    const { falldownAction } = getCurrentMenu(builderContext);
+
+    if (actionStatus === "PayloadNotFound" && falldownAction) {
+      await actionsBuffer.findAndCall(falldownAction, contextBundle);
+    } else if (!falldownAction) {
       await context.send("Fallback couse no payload was found");
-      throw new Error("Fallback couse no payload was found");
     }
 
-    const isActionFound = await actionsBuffer.findAndCall({
-      actionPayload: payload,
-      context,
-      internalContext: ouptutContext,
-    });
-
-    if (!isActionFound) {
-      await context.send("Fallback couse no action was found");
-      throw new Error("Fallback couse no action was found");
-    }
-
-    return ouptutContext;
+    return builderContext;
   };
 
   return middleware;
