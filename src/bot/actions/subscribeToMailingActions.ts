@@ -1,5 +1,5 @@
 import { fakeUser, BotContext } from "bot/rootMiddleware";
-import { createParametarizedAction } from "core/action/createAction";
+import { createParametarizedAction } from "R1IO";
 
 interface SubscribeToMailingActionProps {
   toSubscribe: boolean;

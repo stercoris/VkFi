@@ -1,8 +1,21 @@
 diff --git a/node_modules/@types/react/index.d.ts b/node_modules/@types/react/index.d.ts
-index 68e59f1..ccfa1ee 100755
+index 68e59f1..51b285d 100755
 --- a/node_modules/@types/react/index.d.ts
 +++ b/node_modules/@types/react/index.d.ts
-@@ -3064,186 +3064,41 @@ declare global {
+@@ -541,11 +541,7 @@ declare namespace React {
+     type FC<P = {}> = FunctionComponent<P>;
+ 
+     interface FunctionComponent<P = {}> {
+-        (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
+-        propTypes?: WeakValidationMap<P> | undefined;
+-        contextTypes?: ValidationMap<any> | undefined;
+-        defaultProps?: Partial<P> | undefined;
+-        displayName?: string | undefined;
++        (props: PropsWithChildren<P>): ReactElement<any, any> | null;
+     }
+ 
+     type VFC<P = {}> = VoidFunctionComponent<P>;
+@@ -3064,186 +3060,43 @@ declare global {
          interface IntrinsicAttributes extends React.Attributes { }
          interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
  
@@ -18,15 +31,17 @@ index 68e59f1..ccfa1ee 100755
 +					params?: Object;
 +					type: 'parameterizedAction' | 'action'
 +				}
++
++				type Colors = ButtonColor | 'secondary' | 'primary' | 'negative' | 'positive';
 +				interface ButtonProps {
 +					label: string;
-+					color?: ButtonColor;
++					color?: Colors;
 +					onClick?: ActionPayload;
 +				}
 +
 +				interface ButtonPayload {
 +					label: string;
-+					color?: ButtonColor;
++					color?: Colors;
 +					payload?: ActionPayload;
 +				}
 +				

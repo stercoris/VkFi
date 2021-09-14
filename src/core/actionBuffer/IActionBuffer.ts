@@ -1,10 +1,11 @@
 import { ContextBundle } from "core/middleware/IContextBundle";
-import { MessageContext } from "vk-io";
+
+type ActionResponse = "ActionNotFound" | "ActionExecuted" | "PayloadNotFound";
 
 export type FindAndCall<C> = (
   payload: JSX.ActionPayload,
   params: ContextBundle<C>
-) => Promise<boolean>;
+) => Promise<ActionResponse>;
 
 export interface IActionBuffer<C> {
   findAndCall: FindAndCall<C>;

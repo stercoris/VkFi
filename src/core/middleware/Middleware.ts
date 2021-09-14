@@ -1,6 +1,5 @@
 import { actions } from "core/action/createAction";
 import { IBuilder } from "core/builder/IBuilder";
-import { apllyButtonActions } from "core/middleware/actions/applyActions";
 import { applyCustomSend } from "core/middleware/contextExtensions/send/send";
 import { ContextBundle } from "core/middleware/IContextBundle";
 import { IMiddleware } from "core/middleware/IMiddleware";
@@ -28,14 +27,17 @@ export const createMiddleware = <
 
     console.log(context.messagePayload);
 
-    const actionStatus = await apllyButtonActions(actionsBuffer, contextBundle);
+    const actionStatus = await actionsBuffer.findAndCall(
+      context.messagePayload,
+      contextBundle
+    );
 
     const { falldownAction } = getCurrentMenu(builderContext);
 
-    if (actionStatus === "PayloadNotFound" && falldownAction) {
-      await actionsBuffer.findAndCall(falldownAction, contextBundle);
-    } else if (!falldownAction) {
-      await context.send("Fallback couse no payload was found");
+    if (actionStatus === "PayloadNotFound") {
+      if (falldownAction)
+        await actionsBuffer.findAndCall(falldownAction, contextBundle);
+      else await context.send("Fallback couse no payload was found");
     }
 
     return builderContext;

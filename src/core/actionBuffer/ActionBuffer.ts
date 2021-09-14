@@ -12,10 +12,18 @@ export const createActionBuffer = <InternalContext>(
     payload,
     { context, builderContext }
   ) => {
+    if (!payload) {
+      return "PayloadNotFound";
+    }
+
     const { name, type, params } = payload;
 
     const action = actions.find((a) => a.name === name);
-    if (!action) return false;
+
+    if (!action) {
+      await context.send("Fallback couse no action was found");
+      return "ActionNotFound";
+    }
 
     if (type === "parameterizedAction") {
       const parameterizedAction = action.do as ParameterizedAction<
@@ -28,7 +36,7 @@ export const createActionBuffer = <InternalContext>(
       await simpleAction(context, builderContext);
     }
 
-    return true;
+    return "ActionExecuted";
   };
 
   return { findAndCall };

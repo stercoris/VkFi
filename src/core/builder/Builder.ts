@@ -6,7 +6,7 @@ import {
 
 type MenuConfig<C> = {
   build: React.FC<C>;
-  falldownAction?: JSX.ActionPayload;
+  onFalldown?: JSX.ActionPayload;
 };
 
 type EnumToMenu<C, E extends string> = Record<E, MenuConfig<C>>;

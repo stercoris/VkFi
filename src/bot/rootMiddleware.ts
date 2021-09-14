@@ -27,7 +27,7 @@ const router = createBuilder<BotContext, Menus>(
   {
     [Menus.MainMenu]: {
       build: MainMenu,
-      falldownAction: goToPrevMenuAction(),
+      onFalldown: goToPrevMenuAction(),
     },
     [Menus.MailingMenu]: {
       build: MailingMenu,
@@ -36,6 +36,10 @@ const router = createBuilder<BotContext, Menus>(
   ({ user }) => user.selectedMenu
 );
 
-export const RootMiddleware = createMiddleware(router, async () => ({
-  user: fakeUser,
-}));
+const beautyLog = (message: string) =>
+  console.log("\x1b[31m", "Новое сообщение: ", "\x1b[0m", message);
+
+export const RootMiddleware = createMiddleware(router, async (context) => {
+  beautyLog(JSON.stringify(context.text));
+  return { user: fakeUser };
+});

@@ -10,6 +10,7 @@
     "sourceMap": true,
     "baseUrl": "./src",
     "rootDir": "./src",
+    "resolveJsonModule": true,
     "outDir": "./build",
     "allowUmdGlobalAccess": true,
     "strict": true,

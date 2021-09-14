@@ -29,6 +29,7 @@
     "@vk-io/hear": "^1.1.0",
     "deepcopy": "^2.1.0",
     "dotenv": "^10.0.0",
+    "local-devices": "^3.1.0",
     "ts-jest": "^27.0.1",
     "uuid": "^8.3.2",
     "vk-io": "^4.3.0"
