@@ -1,4 +1,4 @@
-import { Keyboard, KeyboardBuilder } from "vk-io";
+import { IKeyboardProxyButton, Keyboard, KeyboardBuilder } from "vk-io";
 
 export interface RawKeyboard {
   menu: JSX.MenuPayload;
@@ -7,10 +7,17 @@ export interface RawKeyboard {
 const buttonPayloadToIKeyboardProxyButton = (b: JSX.ButtonPayload) =>
   Keyboard.textButton(b);
 
-export const menuToKeyboardBuilder = ({
+export const menuToKeyboardBuilder = async ({
   menu,
-}: RawKeyboard): KeyboardBuilder => {
-  const buttons = menu.map((r) => r.map(buttonPayloadToIKeyboardProxyButton));
+}: RawKeyboard): Promise<KeyboardBuilder> => {
+  const buildedMenus = await Promise.all(menu);
+  const buttons: IKeyboardProxyButton[][] = [];
 
+  let i = 0;
+  for (const row of buildedMenus) {
+    const buildedRows = await Promise.all(row);
+
+    buttons.push(buildedRows.map(buttonPayloadToIKeyboardProxyButton));
+  }
   return Keyboard.keyboard(buttons);
 };

@@ -21,7 +21,8 @@ export const subscribeToChangesInNetwork = async (vk: VK) => {
       random_id: randomInt(281474976710655),
     });
 
-  sendMessage("Im Ready");
+  //TODO: UNCOMMENT
+  // sendMessage("Im Ready");
 
   const getDiff = (
     oldD: IDevice[],

@@ -1,3 +1,4 @@
+export { unpackContent } from "core/unpacker/unpack";
 export { createMiddleware } from "core/middleware/Middleware";
 export { createBuilder } from "core/builder/Builder";
 export { createActionBuffer } from "core/actionBuffer/ActionBuffer";

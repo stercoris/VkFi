@@ -20,7 +20,7 @@ export const MailingMenu: React.FC<BotContext> = ({ user }) => {
   return (
     <menu>
       <row>{user.subscribed ? <UnsubscribeBtn /> : <SubscribeBtn />}</row>
-      <TimePickerFragment user={user} />
+      {/* <TimePickerFragment user={user} /> */}
       <row>
         <button onClick={goToPrevMenuAction()}>BACK</button>
       </row>

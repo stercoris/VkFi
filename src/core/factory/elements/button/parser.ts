@@ -1,12 +1,15 @@
+import { ComponentOutput } from "core/factory/factory";
 import { ButtonColor } from "vk-io";
 
 export type Button = JSX.ButtonProps;
+
+export type OutputButton = ComponentOutput<"button", JSX.ButtonProps>;
 
 export type CreateButton = (
   name: "button",
   props: Button | null,
   ...children: string[]
-) => JSX.ButtonPayload;
+) => OutputButton;
 
 export const ParseButton: CreateButton = (_, props, children) => {
   // base button component
@@ -17,5 +20,5 @@ export const ParseButton: CreateButton = (_, props, children) => {
     payload: props?.onClick,
   };
 
-  return button;
+  return { type: "button", content: button };
 };

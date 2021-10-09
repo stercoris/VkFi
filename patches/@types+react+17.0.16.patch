@@ -1,5 +1,5 @@
 diff --git a/node_modules/@types/react/index.d.ts b/node_modules/@types/react/index.d.ts
-index 68e59f1..ebdb1f3 100755
+index 68e59f1..a8d87b4 100755
 --- a/node_modules/@types/react/index.d.ts
 +++ b/node_modules/@types/react/index.d.ts
 @@ -1,3249 +1,94 @@
@@ -233,18 +233,28 @@ index 68e59f1..ebdb1f3 100755
 -    // React Nodes
 -    // http://facebook.github.io/react/docs/glossary.html
 -    // ----------------------------------------------------------------------
--
++	type JSXElementConstructor<P> =
++	| 	((props: P) => ReactElement<any, any> | null)
+ 
 -    type ReactText = string | number;
 -    type ReactChild = ReactElement | ReactText;
--
++	interface ReactElement<
++			P = any, 
++			T extends 
++				| string 
++				| JSXElementConstructor<any> = string 
++				| JSXElementConstructor<any>
++	> { type: T; props: P; key: Key | null }
+ 
 -    interface ReactNodeArray extends Array<ReactNode> {}
 -    type ReactFragment = {} | ReactNodeArray;
 -    type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
--
++	type FC<P = {}> = FunctionComponent<P>;
+ 
 -    //
 -    // Top Level API
 -    // ----------------------------------------------------------------------
--
+ 
 -    // DOM Elements
 -    function createFactory<T extends HTMLElement>(
 -        type: keyof ReactHTML): HTMLFactory<T>;
@@ -252,7 +262,7 @@ index 68e59f1..ebdb1f3 100755
 -        type: keyof ReactSVG): SVGFactory;
 -    function createFactory<P extends DOMAttributes<T>, T extends Element>(
 -        type: string): DOMFactory<P, T>;
--
+ 
 -    // Custom components
 -    function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
 -    function createFactory<P>(
@@ -260,7 +270,9 @@ index 68e59f1..ebdb1f3 100755
 -    function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
 -        type: ClassType<P, T, C>): CFactory<P, T>;
 -    function createFactory<P>(type: ComponentClass<P>): Factory<P>;
--
++	type ReactText = string | number;
++	type ReactChild = ReactElement | ReactText;
+ 
 -    // DOM Elements
 -    // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
 -    function createElement(
@@ -279,9 +291,16 @@ index 68e59f1..ebdb1f3 100755
 -        type: string,
 -        props?: ClassAttributes<T> & P | null,
 -        ...children: ReactNode[]): DOMElement<P, T>;
--
++	interface ReactPortal extends ReactElement {
++		key: Key | null;
++		children: ReactNode;
++	}
+ 
 -    // Custom components
--
++	interface ReactNodeArray extends Array<ReactNode> {}
++	type ReactFragment = {} | ReactNodeArray;
++	type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+ 
 -    function createElement<P extends {}>(
 -        type: FunctionComponent<P>,
 -        props?: Attributes & P | null,
@@ -298,7 +317,7 @@ index 68e59f1..ebdb1f3 100755
 -        type: FunctionComponent<P> | ComponentClass<P> | string,
 -        props?: Attributes & P | null,
 -        ...children: ReactNode[]): ReactElement<P>;
--
+ 
 -    // DOM Elements
 -    // ReactHTMLElement
 -    function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
@@ -522,20 +541,11 @@ index 68e59f1..ebdb1f3 100755
 -    interface ChildContextProvider<CC> {
 -        getChildContext(): CC;
 -    }
-+	type JSXElementConstructor<P> =
-+	| 	((props: P) => ReactElement<any, any> | null)
- 
+-
 -    //
 -    // Class Interfaces
 -    // ----------------------------------------------------------------------
-+	interface ReactElement<
-+			P = any, 
-+			T extends 
-+				| string 
-+				| JSXElementConstructor<any> = string 
-+				| JSXElementConstructor<any>
-+	> { type: T; props: P; key: Key | null }
- 
+-
 -    /**
 -     * @deprecated as of recent React versions, function components can no
 -     * longer be considered 'stateless'. Please use `FunctionComponent` instead.
@@ -543,8 +553,7 @@ index 68e59f1..ebdb1f3 100755
 -     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 -     */
 -    type SFC<P = {}> = FunctionComponent<P>;
-+	type FC<P = {}> = FunctionComponent<P>;
- 
+-
 -    /**
 -     * @deprecated as of recent React versions, function components can no
 -     * longer be considered 'stateless'. Please use `FunctionComponent` instead.
@@ -552,9 +561,9 @@ index 68e59f1..ebdb1f3 100755
 -     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 -     */
 -    type StatelessComponent<P = {}> = FunctionComponent<P>;
- 
+-
 -    type FC<P = {}> = FunctionComponent<P>;
- 
+-
 -    interface FunctionComponent<P = {}> {
 -        (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
 -        propTypes?: WeakValidationMap<P> | undefined;
@@ -817,9 +826,7 @@ index 68e59f1..ebdb1f3 100755
 -    }
 -
 -    function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
-+	type ReactText = string | number;
-+	type ReactChild = ReactElement | ReactText;
- 
+-
 -    /** Ensures that the props do not include ref at all */
 -    type PropsWithoutRef<P> =
 -        // Just Pick would be sufficient for this, but I'm trying to avoid unnecessary mapping over union types
@@ -837,11 +844,7 @@ index 68e59f1..ebdb1f3 100755
 -                    : P
 -                : P
 -            : P;
-+	interface ReactPortal extends ReactElement {
-+		key: Key | null;
-+		children: ReactNode;
-+	}
- 
+-
 -    type PropsWithChildren<P> = P & { children?: ReactNode | undefined };
 -
 -    /**
@@ -917,10 +920,7 @@ index 68e59f1..ebdb1f3 100755
 -    interface MutableRefObject<T> {
 -        current: T;
 -    }
-+	interface ReactNodeArray extends Array<ReactNode> {}
-+	type ReactFragment = {} | ReactNodeArray;
-+	type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
- 
+-
 -    // This will technically work if you give a Consumer<T> or Provider<T> but it's deprecated and warns
 -    /**
 -     * Accepts a context object (the value returned from `React.createContext`) and returns the current
@@ -1021,18 +1021,14 @@ index 68e59f1..ebdb1f3 100755
 -     * @version 16.8.0
 -     * @see https://reactjs.org/docs/hooks-reference.html#usereducer
 -     */
- 
+-
 -    // I'm not sure if I keep this 2-ary or if I make it (2,3)-ary; it's currently (2,3)-ary.
 -    // The Flow types do have an overload for 3-ary invocation with undefined initializer.
-+	type PropsWithChildren<P> = P & { children?: ReactNode | undefined };
- 
+-
 -    // NOTE: without the ReducerState indirection, TypeScript would reduce S to be the most common
 -    // supertype between the reducer's return type and the initialState (or the initializer's return type),
 -    // which would prevent autocompletion from ever working.
-+	interface FunctionComponent<P = {}> {
-+			(props: PropsWithChildren<P>): ReactElement<any, any> | null;
-+	}
- 
+-
 -    // TODO: double-check if this weird overload logic is necessary. It is possible it's either a bug
 -    // in older versions, or a regression in newer versions of the typescript completion service.
 -    function useReducer<R extends Reducer<any, any>>(
@@ -1364,9 +1360,13 @@ index 68e59f1..ebdb1f3 100755
 -
 -    interface HTMLProps<T> extends AllHTMLAttributes<T>, ClassAttributes<T> {
 -    }
--
++	type PropsWithChildren<P> = P & { children?: ReactNode | undefined };
+ 
 -    type DetailedHTMLProps<E extends HTMLAttributes<T>, T> = ClassAttributes<T> & E;
--
++	interface FunctionComponent<P = {}> {
++			(props: PropsWithChildren<P>): Promise<ReactElement<any, any>> | null;
++	}
+ 
 -    interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
 -    }
 -
@@ -3035,10 +3035,15 @@ index 68e59f1..ebdb1f3 100755
 -// naked 'any' type in a conditional type will short circuit and union both the then/else branches
 -// so boolean is only resolved for T = any
 -type IsExactlyAny<T> = boolean extends (T extends never ? true : false) ? true : false;
--
++declare global {
++    namespace JSX {
++        interface Element extends Promise<React.ReactElement<any, any>> { }
+ 
 -type ExactlyAnyPropertyKeys<T> = { [K in keyof T]: IsExactlyAny<T[K]> extends true ? K : never }[keyof T];
 -type NotExactlyAnyPropertyKeys<T> = Exclude<keyof T, ExactlyAnyPropertyKeys<T>>;
--
++        interface ElementAttributesProperty { props: {}; }
++        interface ElementChildrenAttribute { children: {}; }
+ 
 -// Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
 -type MergePropTypes<P, T> =
 -    // Distribute over P in case it is a union type
@@ -3054,7 +3059,8 @@ index 68e59f1..ebdb1f3 100755
 -                // Keep leftover props not specified in propTypes
 -                & Pick<P, Exclude<keyof P, keyof T>>
 -        : never;
--
++        interface IntrinsicAttributes extends React.Attributes { }
+ 
 -// Any prop that has a default prop becomes optional, but its type is unchanged
 -// Undeclared default props are augmented into the resulting allowable attributes
 -// If declared props have indexed properties, ignore default props entirely as keyof gets widened
@@ -3065,7 +3071,13 @@ index 68e59f1..ebdb1f3 100755
 -        & Partial<Pick<P, Extract<keyof P, keyof D>>>
 -        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
 -    : never;
--
++				enum ButtonColor {
++					SECONDARY = "secondary",
++					PRIMARY = "primary",
++					NEGATIVE = "negative",
++					POSITIVE = "positive",
++				}
+ 
 -type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D; }
 -    ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
 -    : C extends { propTypes: infer T; }
@@ -3073,16 +3085,26 @@ index 68e59f1..ebdb1f3 100755
 -        : C extends { defaultProps: infer D; }
 -            ? Defaultize<P, D>
 -            : P;
--
- declare global {
-     namespace JSX {
-         interface Element extends React.ReactElement<any, any> { }
++				type ActionPayload = {
++					name: string;
++					params?: Object;
++					type: 'parameterizedAction' | 'action'
++				}
+ 
+-declare global {
+-    namespace JSX {
+-        interface Element extends React.ReactElement<any, any> { }
 -        interface ElementClass extends React.Component<any> {
 -            render(): React.ReactNode;
 -        }
-+
-         interface ElementAttributesProperty { props: {}; }
-         interface ElementChildrenAttribute { children: {}; }
+-        interface ElementAttributesProperty { props: {}; }
+-        interface ElementChildrenAttribute { children: {}; }
++				type Colors = ButtonColor | 'secondary' | 'primary' | 'negative' | 'positive';
++				interface ButtonProps {
++					label: string;
++					color?: Colors;
++					onClick?: ActionPayload;
++				}
  
 -        // We can't recurse forever because `type` can't be self-referential;
 -        // let's assume it's reasonable to do a single React.lazy() around a single React.memo() / vice-versa
@@ -3091,9 +3113,16 @@ index 68e59f1..ebdb1f3 100755
 -                ? ReactManagedAttributes<U, P>
 -                : ReactManagedAttributes<T, P>
 -            : ReactManagedAttributes<C, P>;
--
-         interface IntrinsicAttributes extends React.Attributes { }
++				interface ButtonPayload {
++					label: string;
++					color?: Colors;
++					payload?: ActionPayload;
++				}
+ 				
+-        interface IntrinsicAttributes extends React.Attributes { }
 -        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
++				type RowPayload = ButtonPayload[];
++				type MenuPayload = RowPayload[];
  
 -        interface IntrinsicElements {
 -            // HTML
@@ -3214,27 +3243,11 @@ index 68e59f1..ebdb1f3 100755
 -            video: React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
 -            wbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
 -            webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
-+				enum ButtonColor {
-+					SECONDARY = "secondary",
-+					PRIMARY = "primary",
-+					NEGATIVE = "negative",
-+					POSITIVE = "positive",
-+				}
-+
-+				type ActionPayload = {
-+					name: string;
-+					params?: Object;
-+					type: 'parameterizedAction' | 'action'
-+				}
  
 -            // SVG
 -            svg: React.SVGProps<SVGSVGElement>;
-+				type Colors = ButtonColor | 'secondary' | 'primary' | 'negative' | 'positive';
-+				interface ButtonProps {
-+					label: string;
-+					color?: Colors;
-+					onClick?: ActionPayload;
-+				}
++				type Button = Promise<React.ReactElement<ButtonPayload>>;
++				type Row = Promise<React.ReactElement<Button>>;
  
 -            animate: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateElement but is not in TypeScript's lib.dom.d.ts for now.
 -            animateMotion: React.SVGProps<SVGElement>;
@@ -3293,19 +3306,6 @@ index 68e59f1..ebdb1f3 100755
 -            tspan: React.SVGProps<SVGTSpanElement>;
 -            use: React.SVGProps<SVGUseElement>;
 -            view: React.SVGProps<SVGViewElement>;
-+				interface ButtonPayload {
-+					label: string;
-+					color?: Colors;
-+					payload?: ActionPayload;
-+				}
-+				
-+				type RowPayload = ButtonPayload[];
-+				type MenuPayload = RowPayload[];
-+
-+
-+				type Button = React.ReactElement<ButtonPayload>;
-+				type Row = React.ReactElement<Button>;
-+
 +        interface IntrinsicElements {
 +					button: Omit<ButtonProps, 'label'> & ({label: string;} |  { children: string; });
 +					row: {children: Button | Button[]}
@@ -3313,3 +3313,4 @@ index 68e59f1..ebdb1f3 100755
          }
      }
  }
+\ No newline at end of file

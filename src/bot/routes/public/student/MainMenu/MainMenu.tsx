@@ -4,20 +4,26 @@ import { goToPrevMenuAction } from "bot/actions/goBackNavigationAction";
 import { BotContext } from "bot/rootMiddleware";
 import { sendWifiInfoAction } from "bot/actions/sendWifiInfoAction";
 
-export const MainMenu: React.FC<BotContext> = ({ user: { selectedWeek } }) => (
-  <menu>
-    <row>
-      <button onClick={sendWifiInfoAction()} color={ButtonColor.POSITIVE}>
-        Schedule
-      </button>
-      <button
-        color={
-          selectedWeek === "Green" ? ButtonColor.POSITIVE : ButtonColor.NEGATIVE
-        }
-      >{`${selectedWeek} week`}</button>
-    </row>
-    <row>
-      <button onClick={goToPrevMenuAction()}>BACK</button>
-    </row>
-  </menu>
-);
+export const MainMenu: React.FC<BotContext> = ({ user: { selectedWeek } }) => {
+  const BackButton = () => <button onClick={goToPrevMenuAction()}>BACK</button>;
+  return (
+    <menu>
+      <row>
+        <button onClick={sendWifiInfoAction()} color={ButtonColor.POSITIVE}>
+          Schedule
+        </button>
+        <button
+          color={
+            selectedWeek === "Green"
+              ? ButtonColor.POSITIVE
+              : ButtonColor.NEGATIVE
+          }
+          onClick={goToPrevMenuAction()}
+        >{`${selectedWeek} week`}</button>
+      </row>
+      <row>
+        <BackButton />
+      </row>
+    </menu>
+  );
+};
