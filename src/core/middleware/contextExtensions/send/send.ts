@@ -1,5 +1,6 @@
 import { BuildKeyboard } from "core/builder/IBuilder";
 import { ContextBundle } from "core/middleware/IContextBundle";
+import { nodeToVkIoKeyboard, unpackContent } from "R1IO";
 import { IMessageContextSendOptions } from "vk-io";
 
 export const applyCustomSend = <C extends {}>(
@@ -8,11 +9,8 @@ export const applyCustomSend = <C extends {}>(
 ) => {
   const oldSend = context.send;
   context.send = async (text: string) => {
-    const a = await build(builderContext);
-    console.log(a["rows"]);
-    const params: IMessageContextSendOptions = {
-      keyboard: a,
-    };
+    const keyboard = await build(builderContext);
+    const params: IMessageContextSendOptions = { keyboard };
     return await oldSend.bind(context)(text, params);
   };
 };
