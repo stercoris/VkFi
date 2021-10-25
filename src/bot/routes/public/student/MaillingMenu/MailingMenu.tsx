@@ -4,7 +4,7 @@ import { subscribe, unsubscribe } from "bot/actions/subscribeToMailingActions";
 import { goToPrevMenuAction } from "bot/actions/goBackNavigationAction";
 import { BotContext } from "bot/rootMiddleware";
 
-export const MailingMenu: React.FC<BotContext> = ({ user }) => {
+export const MailingMenu: React.FC<BotContext> = async ({ user }) => {
   const UnsubscribeBtn = () => (
     <button onClick={unsubscribe} color="negative">
       Unsubscribe
@@ -20,7 +20,7 @@ export const MailingMenu: React.FC<BotContext> = ({ user }) => {
   return (
     <menu>
       <row>{user.subscribed ? <UnsubscribeBtn /> : <SubscribeBtn />}</row>
-      {/* <TimePickerFragment user={user} /> */}
+      <TimePickerFragment user={user} />
       <row>
         <button onClick={goToPrevMenuAction()}>BACK</button>
       </row>

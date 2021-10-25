@@ -1,5 +1,5 @@
-import { ParseButton } from "./elements/button/parser";
-import { ParseFunctionalCommponent } from "./elements/functional/parser";
+import { parseButton } from "./elements/button/parser";
+import { parseFunctional } from "./elements/functional/parser";
 
 export type ComponentType = "row" | "button" | "functional" | "menu";
 
@@ -18,10 +18,10 @@ export const createElement = async (
   ...children: R1Node[] | string[]
 ) => {
   const parsers = {
-    button: ParseButton,
+    button: parseButton,
     row: create("row"),
     menu: create("menu"),
-    functional: ParseFunctionalCommponent,
+    functional: parseFunctional,
   };
 
   const standartName = typeof name === "function" ? "functional" : name;
