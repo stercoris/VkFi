@@ -1,19 +1,10 @@
-import { ComponentOutput } from "core/factory/factory";
-
-export type OutputFunctional = ComponentOutput<
-  "functional",
-  Promise<unknown>[] | Promise<unknown>
->;
-export type OutputFunctionalResolved = ComponentOutput<
-  "functional",
-  unknown[] | unknown
->;
+import { R1Node } from "core/factory/factory";
 
 export type FunctionalParser = (
   func: Function,
   props: Object,
   ...children: unknown[]
-) => OutputFunctional;
+) => R1Node;
 
 export const ParseFunctionalCommponent: FunctionalParser = (
   func,
