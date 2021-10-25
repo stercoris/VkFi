@@ -9,7 +9,7 @@ export type CreateButton = (
   ...children: string[]
 ) => R1Node;
 
-export const ParseButton: CreateButton = (_, props, children) => {
+export const parseButton: CreateButton = (_, props, children) => {
   // base button component
 
   const button: JSX.ButtonPayload = {
