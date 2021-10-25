@@ -3193,6 +3193,11 @@ pretty-format@^27.0.1:
     ansi-styles "^5.0.0"
     react-is "^17.0.1"
 
+promise-resolve-deep@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/promise-resolve-deep/-/promise-resolve-deep-1.1.1.tgz#fb5baf6f8eb2b5885cfc6506b550ee3119eb354e"
+  integrity sha512-BPA8B0Wf55swXP13rhw+2QXohT9B0y/6k7GtRar3Io5ORENRVYUO629XNIylkjsxZoWhXiLQy1te8bLUtOXi5Q==
+
 prompts@^2.0.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/prompts/-/prompts-2.4.1.tgz#befd3b1195ba052f9fd2fde8a486c4e82ee77f61"
