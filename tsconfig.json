@@ -16,7 +16,6 @@
     "strict": true,
     "esModuleInterop": true,
     "paths": {
-      "R1IO": ["core/R1IO"],
       "@Components/*": ["bot/components/*"]
     }
   }

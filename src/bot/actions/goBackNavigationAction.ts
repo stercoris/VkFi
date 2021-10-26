@@ -1,6 +1,6 @@
 import { fakeUser, BotContext } from "bot/rootMiddleware";
 import { User } from "IUser";
-import { createAction } from "R1IO";
+import { createAction } from "r1-io";
 
 const swapUserMenus = (u: User) =>
   ([u.selectedMenu, u.previousMenu] = [u.previousMenu, u.selectedMenu]);

@@ -1,5 +1,5 @@
 import { fakeUser, BotContext } from "bot/rootMiddleware";
-import { createParametarizedAction } from "R1IO";
+import { createParametarizedAction } from "r1-io";
 
 //TODO: WTF? REDO
 const changeUserSubscriptionTime = (

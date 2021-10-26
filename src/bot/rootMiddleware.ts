@@ -1,4 +1,4 @@
-import { createBuilder, createMiddleware } from "R1IO";
+import { createBuilder, createMiddleware } from "r1-io";
 import { User } from "IUser";
 import { MailingMenu } from "bot/routes/public/student/MaillingMenu/MailingMenu";
 import { MainMenu } from "bot/routes/public/student/MainMenu/MainMenu";

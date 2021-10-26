@@ -1,10 +1,10 @@
-import R1IO from "R1IO";
+import R1IO from "r1-io";
 import { TimePickerFragment } from "@Components/TimePicker/TimePicker";
 import { subscribe, unsubscribe } from "bot/actions/subscribeToMailingActions";
 import { goToPrevMenuAction } from "bot/actions/goBackNavigationAction";
 import { BotContext } from "bot/rootMiddleware";
 
-export const MailingMenu: React.FC<BotContext> = async ({ user }) => {
+export const MailingMenu: R1IO.FC<BotContext> = async ({ user }) => {
   const UnsubscribeBtn = () => (
     <button onClick={unsubscribe} color="negative">
       Unsubscribe

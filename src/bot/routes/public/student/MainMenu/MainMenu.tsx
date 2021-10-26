@@ -1,10 +1,10 @@
 import { ButtonColor } from "vk-io";
-import R1IO from "R1IO";
+import R1IO from "r1-io";
 import { goToPrevMenuAction } from "bot/actions/goBackNavigationAction";
 import { BotContext } from "bot/rootMiddleware";
 import { sendWifiInfoAction } from "bot/actions/sendWifiInfoAction";
 
-export const MainMenu: React.FC<BotContext> = ({ user: { selectedWeek } }) => {
+export const MainMenu: R1IO.FC<BotContext> = ({ user: { selectedWeek } }) => {
   const BackButton = () => <button onClick={goToPrevMenuAction()}>BACK</button>;
   return (
     <menu>

@@ -3,14 +3,14 @@ import {
   changeMorningSubscribtionTime,
 } from "bot/actions/timerAction";
 import { User } from "IUser";
-import R1IO from "R1IO";
+import R1IO from "r1-io";
 import { ButtonColor } from "vk-io";
 
 interface TimePickerProps {
   user: User;
 }
 
-export const TimePickerFragment: React.FC<TimePickerProps> = async ({
+export const TimePickerFragment: R1IO.FC<TimePickerProps> = async ({
   user,
 }) => {
   console.log("SAS");

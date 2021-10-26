@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/bin/node /usr/bin/yarn add @typespromise-resolve-deep
+  /usr/bin/node /usr/bin/yarn add r1-io
 
 PATH: 
-  /home/stercore/.local/bin:/usr/local/bin:/usr/bin:/var/lib/snapd/snap/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+  /home/stercore/.local/bin:/home/stercore/.local/bin:/usr/local/bin:/usr/bin:/var/lib/snapd/snap/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
 
 Yarn version: 
   1.22.15
@@ -14,8 +14,8 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@typespromise-resolve-deep: Request "https://registry.yarnpkg.com/@typespromise-resolve-deep" returned a 405
-      at Request.params.callback [as _callback] (/usr/lib/node_modules/yarn/lib/cli.js:67040:18)
+  Error: https://registry.yarnpkg.com/r1-io: Not found
+      at Request.params.callback [as _callback] (/usr/lib/node_modules/yarn/lib/cli.js:67031:18)
       at Request.self.callback (/usr/lib/node_modules/yarn/lib/cli.js:140885:22)
       at Request.emit (events.js:400:28)
       at Request.<anonymous> (/usr/lib/node_modules/yarn/lib/cli.js:141857:10)

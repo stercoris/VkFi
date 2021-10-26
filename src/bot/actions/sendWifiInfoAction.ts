@@ -1,6 +1,6 @@
 import { BotContext } from "bot/rootMiddleware";
 import { getDeviceListPrettifed } from "bot/wifiParser/wifiParser";
-import { createAction } from "R1IO";
+import { createAction } from "r1-io";
 
 export const sendWifiInfoAction = createAction<BotContext>(
   `get devices info`,

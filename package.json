@@ -13,7 +13,6 @@
     "@types/deepmerge": "^2.2.0",
     "@types/jest": "^26.0.23",
     "@types/node": "^16.4.13",
-    "@types/react": "^17.0.16",
     "babel-jest": "^27.0.1",
     "jest": "^27.0.1",
     "jest-environment-node": "^26.1.0",
