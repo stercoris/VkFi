@@ -1,48 +1,19 @@
-# VK-JSX
+# !!IN_DEVELOPMENT!!
 
-## Simple jsx to vk-keyboard(json) compiler with ***custom fabric*** & ***async functional components*** & ***redux-like actions***
+# VK-Fi
 
-### It is still in development, i need to create algoritmh to: 
-- resolve all promises in keyboard tree 
-- unpack functional components
+- Simple vk bot based on my own [r1-io](based on [vk-io]) to help monitor your Wi-Fi network
 
-couse my json right now look like: 
-```json
-{
-    type: 'menu',
-    content: Promise{[
-        Promise{ 
-            {
-                type: 'fucntional',
-                content: Promise{
-                    {
-                        type: 'row',
-                        content: Promise{
-                            {
-                                type: 'button',
-                                content: {(color, text, action)}
-                            }
-                        }
-                    }
-                }
-            },
-        },
-    ]}
-}
+## Menus :
+- Main Menu:
+![vk1](img/vk1.png)
+- Settings Menu:
+![vk2](img/vk2.png)
+
+## Setup
 ```
-and needed to look lile: 
-```json
-{
-    type: 'menu',
-    content: [
-        {
-            type: 'row',
-            content: [
-                {
-                    type: 'button',
-                    content: {(color, text, action)}
-                }
-            ]
-        },
-    ]
-}
+$ there will be setup of this repo
+```
+
+[r1-io]: <https://github.com/stercoris/r1-io>
+[vk-io]: <https://github.com/negezor/vk-io>
