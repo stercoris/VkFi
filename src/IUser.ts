@@ -4,8 +4,8 @@ export interface User {
   subscribed: boolean;
   username: string;
   selectedWeek: "Red" | "Green";
-  morningMailingTime: number;
-  eveningMailingTime: number;
+  mailingInterval: number;
+  pullInteval: number;
   selectedMenu: Menus;
   previousMenu: Menus;
 }

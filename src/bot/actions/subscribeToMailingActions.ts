@@ -1,5 +1,6 @@
 import { fakeUser, BotContext } from "bot/rootMiddleware";
 import { createParametarizedAction } from "r1-io";
+import { delay } from "utils/delay";
 
 interface SubscribeToMailingActionProps {
   toSubscribe: boolean;
@@ -11,10 +12,10 @@ const subscribeToMailingAction = createParametarizedAction<
 >(`change user subscribtion status`, async ({ toSubscribe }, context) => {
   context.send("Hello");
 
-  setTimeout(() => {
-    fakeUser.subscribed = toSubscribe;
-    context.send(toSubscribe ? "You are subscribed" : "You are unsubscribed");
-  }, 1000);
+  await delay(1000);
+
+  fakeUser.subscribed = toSubscribe;
+  context.send(toSubscribe ? "You are subscribed" : "You are unsubscribed");
 });
 
 export const unsubscribe = subscribeToMailingAction({ toSubscribe: false });

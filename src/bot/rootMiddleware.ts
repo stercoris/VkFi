@@ -1,8 +1,8 @@
 import { createBuilder, createMiddleware } from "r1-io";
 import { User } from "IUser";
-import { MailingMenu } from "bot/routes/public/student/MaillingMenu/MailingMenu";
-import { MainMenu } from "bot/routes/public/student/MainMenu/MainMenu";
+import { MainMenu } from "bot/routes/public/MainMenu/MainMenu";
 import { goToPrevMenuAction } from "bot/actions/goBackNavigationAction";
+import { SettingsMenu } from "bot/routes/public/SettingsMenu/SettingsMenu";
 
 export interface BotContext {
   user: User;
@@ -10,16 +10,16 @@ export interface BotContext {
 
 export enum Menus {
   MainMenu = "Main",
-  MailingMenu = "Mailing",
+  SettingsMenu = "Settings",
 }
 
 export const fakeUser: User = {
   selectedWeek: "Green",
   subscribed: true,
   username: "Dima",
-  eveningMailingTime: 18,
-  morningMailingTime: 8,
-  selectedMenu: Menus.MailingMenu,
+  pullInteval: 18,
+  mailingInterval: 8,
+  selectedMenu: Menus.MainMenu,
   previousMenu: Menus.MainMenu,
 };
 
@@ -27,10 +27,9 @@ const router = createBuilder<BotContext, Menus>(
   {
     [Menus.MainMenu]: {
       build: MainMenu,
-      onFalldown: goToPrevMenuAction(),
     },
-    [Menus.MailingMenu]: {
-      build: MailingMenu,
+    [Menus.SettingsMenu]: {
+      build: SettingsMenu,
     },
   },
   ({ user }) => user.selectedMenu
