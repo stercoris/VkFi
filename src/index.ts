@@ -1,7 +1,7 @@
 import { RootMiddleware } from "@Root";
 import { VK } from "vk-io";
-import { Config } from "config/Config";
-import { subscribeToChangesInNetwork } from "wifiParser/wifiSubscribtionSecvice";
+import { Config } from "@Config";
+import { subscribeToChangesInNetwork } from "@Utils/wifiParser";
 
 const vk = new VK({
   token: Config.TOKEN,

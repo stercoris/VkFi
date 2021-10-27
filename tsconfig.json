@@ -19,7 +19,10 @@
       "@Actions/*": ["actions/*"],
       "@Components/*": ["components/*"],
       "@Routes/*": ["routes/*"],
-      "@Root": ["./rootMiddleware"]
+      "@Utils/*": ["utils/*"],
+
+      "@Root": ["./rootMiddleware"],
+      "@Config": ["config/Config"]
     }
   }
 }

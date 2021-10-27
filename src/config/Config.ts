@@ -1,7 +1,15 @@
-require("dotenv").config();
+import configJson from "config.json";
+
+type ConfigType = {
+  group_id: number;
+  master_id: number;
+  api_token: string;
+};
+
+const CONFIG = configJson as unknown as ConfigType;
 
 export class Config {
-  static TOKEN: string = process.env.TOKEN as string;
-  static GROUP_ID: number = Number(process.env.GROUP_ID);
-  static MASTER_ID: number = Number(process.env.MASTER_ID);
+  static TOKEN: string = CONFIG.api_token;
+  static GROUP_ID: number = Number(CONFIG.group_id);
+  static MASTER_ID: number = Number(CONFIG.master_id);
 }

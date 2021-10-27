@@ -1,5 +1,5 @@
 import R1IO from "r1-io";
-import { goToMenuAction } from "actions/navigation";
+import { goToMenuAction } from "@Actions/navigation";
 import { Menus } from "@Root";
 import { ButtonColor } from "vk-io";
 

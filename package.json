@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "postinstall": "patch-package",
-    "watch": "tsc-watch --p tsconfig.json --onSuccess 'ts-node -r tsconfig-paths/register src/index.tsx && nodemon ./build/index.js'"
+    "watch": "tsc-watch --p tsconfig.json --onSuccess 'ts-node -r tsconfig-paths/register src/index.ts && nodemon ./build/index.js'"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",

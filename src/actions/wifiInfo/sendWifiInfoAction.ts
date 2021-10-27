@@ -1,6 +1,6 @@
 import { WIFI } from "@Actions/wifiInfo";
 import { BotContext } from "@Root";
-import { getDeviceListPrettifed } from "wifiParser/wifiParser";
+import { getDeviceListPrettifed } from "@Utils/wifiParser/wifiParser";
 import { createAction } from "r1-io";
 
 export const sendWifiInfoAction = createAction<BotContext>(
