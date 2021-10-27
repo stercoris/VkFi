@@ -1,4 +1,4 @@
-import { getDeviceList } from "./wifiParser";
+import { getDeviceList } from "./getDeviceList";
 import { Config } from "config/Config";
 import { randomInt } from "crypto";
 import { IDevice } from "local-devices";

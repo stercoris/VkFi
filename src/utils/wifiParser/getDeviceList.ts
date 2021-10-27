@@ -18,13 +18,10 @@ export const getDeviceList = async (): Promise<IDevice[]> => {
 };
 
 //TODO REDO
-export const getDeviceListPrettifed = async (
-  devicesOrPromise: Promise<IDevice[]> | IDevice[] = getDeviceList()
+export const prettifyDeviceNames = async (
+  devices: IDevice[]
 ): Promise<string> => {
-  const devices = await devicesOrPromise;
-  const parsedDevices = devices.reduce(
-    (prev, d) => prev + `${d.name} - ${d.ip} \n`,
-    ""
-  );
-  return parsedDevices;
+  const prettifyDeviceName = (d: IDevice) => `${d.name} - ${d.ip} \n`;
+  const prettifyedNames = devices.map(prettifyDeviceName).join("");
+  return prettifyedNames;
 };
