@@ -1,7 +1,7 @@
-import { goToMenuAction } from "bot/actions/navigationAction";
-import { Menus } from "bot/rootMiddleware";
-import R1IO from "r1-io/dist";
-import { ButtonColor } from "r1-io/node_modules/vk-io";
+import R1IO from "r1-io";
+import { goToMenuAction } from "actions/navigation";
+import { Menus } from "@Root";
+import { ButtonColor } from "vk-io";
 
 interface NavigationButtonProps {
   menu: Menus;

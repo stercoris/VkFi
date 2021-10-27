@@ -16,7 +16,10 @@
     "strict": true,
     "esModuleInterop": true,
     "paths": {
-      "@Components/*": ["bot/components/*"]
+      "@Actions/*": ["actions/*"],
+      "@Components/*": ["components/*"],
+      "@Routes/*": ["routes/*"],
+      "@Root": ["./rootMiddleware"]
     }
   }
 }

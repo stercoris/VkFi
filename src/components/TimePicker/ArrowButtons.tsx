@@ -1,8 +1,6 @@
-import {
-  changeIntervalTime,
-  changeMailingTime,
-} from "bot/modules/TimePicker/actions/timerAction";
-import R1IO from "r1-io/dist";
+import { changeIntervalTime } from "@Actions/intervalTime";
+import { changeMailingTime } from "@Actions/mailingTime";
+import R1IO from "r1-io";
 
 interface ArrowButtonsProps {
   difTime: number;

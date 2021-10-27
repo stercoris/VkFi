@@ -1,8 +1,6 @@
 import { createBuilder, createMiddleware } from "r1-io";
 import { User } from "IUser";
-import { MainMenu } from "bot/routes/public/MainMenu/MainMenu";
-import { goToPrevMenuAction } from "bot/actions/goBackNavigationAction";
-import { SettingsMenu } from "bot/routes/public/SettingsMenu/SettingsMenu";
+import { MainMenu, SettingsMenu } from "@Routes/public";
 
 export interface BotContext {
   user: User;

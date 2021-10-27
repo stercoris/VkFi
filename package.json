@@ -10,7 +10,6 @@
     "watch": "tsc-watch --p tsconfig.json --onSuccess 'ts-node -r tsconfig-paths/register src/index.tsx && nodemon ./build/index.js'"
   },
   "devDependencies": {
-    "@types/deepmerge": "^2.2.0",
     "@types/jest": "^26.0.23",
     "@types/node": "^16.4.13",
     "babel-jest": "^27.0.1",
@@ -26,13 +25,10 @@
   },
   "dependencies": {
     "@vk-io/hear": "^1.1.0",
-    "deepcopy": "^2.1.0",
     "dotenv": "^10.0.0",
     "local-devices": "^3.1.0",
-    "promise-resolve-deep": "^1.1.1",
     "ts-jest": "^27.0.1",
     "util": "^0.12.4",
-    "uuid": "^8.3.2",
     "vk-io": "^4.3.0"
   }
 }

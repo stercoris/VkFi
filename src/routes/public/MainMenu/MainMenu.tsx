@@ -1,8 +1,8 @@
 import R1IO from "r1-io";
 import { ButtonColor } from "vk-io";
-import { BotContext, Menus } from "bot/rootMiddleware";
-import { sendWifiInfoAction } from "bot/actions/sendWifiInfoAction";
-import { NavigationButton } from "bot/modules/Helpers/NavigationButton";
+import { BotContext, Menus } from "@Root";
+import { sendWifiInfoAction } from "actions/wifiInfo";
+import { NavigationButton } from "@Components/Helpers/NavigationButton";
 
 export const MainMenu: R1IO.FC<BotContext> = () => {
   return (

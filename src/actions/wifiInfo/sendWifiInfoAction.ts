@@ -1,9 +1,10 @@
-import { BotContext } from "bot/rootMiddleware";
-import { getDeviceListPrettifed } from "bot/wifiParser/wifiParser";
+import { WIFI } from "@Actions/wifiInfo";
+import { BotContext } from "@Root";
+import { getDeviceListPrettifed } from "wifiParser/wifiParser";
 import { createAction } from "r1-io";
 
 export const sendWifiInfoAction = createAction<BotContext>(
-  `get devices info`,
+  WIFI.SEND_INFO,
   async (context) => {
     context.send("Подождите...");
     const deviceList = await getDeviceListPrettifed();

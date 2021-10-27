@@ -1,4 +1,4 @@
-import { Menus } from "bot/rootMiddleware";
+import { Menus } from "@Root";
 
 export interface User {
   subscribed: boolean;
