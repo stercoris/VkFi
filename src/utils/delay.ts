@@ -2,4 +2,5 @@
  * Delay util
  * @param time delay time in milliseconds
  */
-export const delay = async (time: number) => setTimeout(Promise.resolve, time);
+export const delay = (time: number) =>
+  new Promise((resolve) => setTimeout(resolve, time));
