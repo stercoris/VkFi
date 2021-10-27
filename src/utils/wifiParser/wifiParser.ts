@@ -1,5 +1,5 @@
 import findLocalDevices, { IDevice } from "local-devices";
-import colorsJson from "./devices.json";
+import colorsJson from "devices.json";
 
 type MyDevices = { [key: string]: string };
 
