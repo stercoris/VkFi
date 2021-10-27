@@ -1,2 +1,2 @@
-export { getDeviceList, prettifyDeviceNames } from "./getDeviceList";
-export { subscribeToChangesInNetwork } from "./wifiSubscribtionSecvice";
+export { getDeviceList, prettifyDeviceNames } from "./helpers/getDeviceList";
+export { WiFiService } from "./wifiService";
