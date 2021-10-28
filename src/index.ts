@@ -23,11 +23,11 @@ const prettifyNewDeviceMessage = (d: DeviceWithStatus) =>
 (async () => {
   vk.updates.on("message_new", RootMiddleware);
 
-  const wifiService = await WiFiService.init();
+  await WiFiService.init();
   WiFiService.setPollingRate(5000);
-  wifiService.startPolling();
+  WiFiService.startPolling();
 
-  wifiService.onNewDevicesFinded((devises) =>
+  WiFiService.onNewDevicesFinded((devises) =>
     sendMessage(devises.map(prettifyNewDeviceMessage).join(""))
   );
 

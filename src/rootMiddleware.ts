@@ -1,6 +1,6 @@
 import { createBuilder, createMiddleware } from "r1-io";
 import { User } from "IUser";
-import { MainMenu, SettingsMenu } from "@Routes/public";
+import { MainMenu, SettingsMenu } from "@Routes/private";
 
 export interface BotContext {
   user: User;

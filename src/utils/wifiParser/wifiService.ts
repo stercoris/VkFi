@@ -9,50 +9,69 @@ import { IDevice } from "local-devices";
 type DeviceCallback = (devices: DeviceWithStatus[]) => void;
 
 export class WiFiService {
-  private devices: IDevice[];
+  /**
+   * Current devices pull
+   */
+  private static devices: IDevice[];
 
+  /**
+   * Rate of polling
+   */
   private static RATE: number = 5000;
+
+  /**
+   * Is polling right now
+   */
+  private static isPolling: boolean = false;
+
+  /**
+   * Array of callback for
+   */
+  private static callbacks: DeviceCallback[] = [];
+
+  public static get Devices() {
+    return WiFiService.devices;
+  }
+
   public static setPollingRate(rate: number): void {
     WiFiService.RATE = rate;
   }
 
   private constructor(initialDevices: IDevice[]) {
-    this.devices = initialDevices ?? [];
-    void this.backgroundTasks();
+    WiFiService.devices = initialDevices ?? [];
+    void WiFiService.backgroundTasks();
   }
 
-  public static async init(): Promise<WiFiService> {
-    return new WiFiService(await getDeviceList());
+  public static async init(): Promise<void> {
+    new WiFiService(await getDeviceList());
   }
 
-  private isPolling: boolean = false;
-  public startPolling(): void {
-    this.isPolling = true;
+  public static startPolling(): void {
+    WiFiService.isPolling = true;
   }
-  public stopPolling(): void {
-    this.isPolling = false;
+  public static stopPolling(): void {
+    WiFiService.isPolling = false;
   }
-  private async findNewDevices(): Promise<void> {
+  private static async findNewDevices(): Promise<void> {
     const newDevices = await getDeviceList();
-    const deviceDiff = getDeviceDiff(this.devices, newDevices);
+    const deviceDiff = getDeviceDiff(WiFiService.devices, newDevices);
 
     if (deviceDiff.length) {
-      this.callbacks.forEach((c) => c(deviceDiff));
+      WiFiService.callbacks.forEach((c) => c(deviceDiff));
     }
-    this.devices = newDevices;
+    WiFiService.devices = newDevices;
   }
 
-  private callbacks: DeviceCallback[] = [];
-  public onNewDevicesFinded(callback: DeviceCallback) {
-    this.callbacks.push(callback);
+  public static onNewDevicesFinded(callback: DeviceCallback) {
+    WiFiService.callbacks.push(callback);
   }
 
-  private async backgroundTasks(): Promise<void> {
-    const tasks = [this.findNewDevices];
-    const executeAllTasks = (t: typeof tasks) => t.map((t) => t.apply(this));
+  private static async backgroundTasks(): Promise<void> {
+    const tasks = [WiFiService.findNewDevices];
+    const executeAllTasks = (t: typeof tasks) => t.map((t) => t());
     while (true) {
       await delay(WiFiService.RATE);
-      if (this.isPolling) {
+      if (WiFiService.isPolling) {
         await Promise.all(executeAllTasks(tasks));
       }
     }
