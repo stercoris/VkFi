@@ -1,6 +1,7 @@
 import { createBuilder, createMiddleware } from "r1-io";
 import { User } from "IUser";
 import { MainMenu, SettingsMenu } from "@Routes/private";
+import { DevicesMenu } from "@Routes/private/DevicesMenu/DevicesMenu";
 
 export interface BotContext {
   user: User;
@@ -9,6 +10,7 @@ export interface BotContext {
 export enum Menus {
   MainMenu = "Main",
   SettingsMenu = "Settings",
+  DevicesMenu = "Devices",
 }
 
 export const fakeUser: User = {
@@ -28,6 +30,9 @@ const router = createBuilder<BotContext, Menus>(
     },
     [Menus.SettingsMenu]: {
       build: SettingsMenu,
+    },
+    [Menus.DevicesMenu]: {
+      build: DevicesMenu,
     },
   },
   ({ user }) => user.selectedMenu
