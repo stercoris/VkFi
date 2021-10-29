@@ -1,19 +1,22 @@
 import findLocalDevices, { IDevice } from "local-devices";
 import colorsJson from "devices.json";
+import { Device } from "@Entities/Device";
 
 type MyDevices = { [key: string]: string };
 
 const myDevices: MyDevices = colorsJson;
 
-export const getDeviceList = async (): Promise<IDevice[]> => {
+const findOrCreateNewDevice = (d: IDevice): Promise<Device> =>
+  Device.findOne({ where: { id: d.ip } }).then(
+    (dbDevice) =>
+      dbDevice ??
+      Device.create({ ip: d.ip, mac: d.mac, name: "Unknown" }).save()
+  );
+
+export const getDeviceList = async (): Promise<Device[]> => {
   const devices = await findLocalDevices();
 
-  const getDeviceNameFromJSON = (device: IDevice) => ({
-    ...device,
-    name: myDevices[device.ip] ?? "Unknown",
-  });
-
-  const filledNames = devices.map(getDeviceNameFromJSON);
+  const filledNames = await Promise.all(devices.map(findOrCreateNewDevice));
 
   return filledNames;
 };
