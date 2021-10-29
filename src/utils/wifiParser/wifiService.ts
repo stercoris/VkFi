@@ -1,79 +1,62 @@
+import { Device } from "@Entities/Device";
 import { delay } from "@Utils/delay";
-import { getDeviceList } from "@Utils/wifiParser";
-import {
-  DeviceWithStatus,
-  getDeviceDiff,
-} from "@Utils/wifiParser/helpers/getDeviceDifference";
-import { IDevice } from "local-devices";
+import { findAndUpdateDevices } from "@Utils/wifiParser";
 
-type DeviceCallback = (devices: DeviceWithStatus[]) => void;
+const isNewDevice = (previous: Device[], d: Device) =>
+  !!!previous.find((prevD) => prevD.mac === d.mac);
+
+const isDeviceWithChangedStatus = (previous: Device[], d: Device) =>
+  !!previous.find(
+    (prevD) => prevD.mac === d.mac && prevD.connected !== d.connected
+  );
+
+type NewDeviceCallback = (d: Device[]) => unknown | Promise<unknown>;
 
 export class WiFiService {
-  /**
-   * Current devices pull
-   */
-  private static devices: IDevice[];
+  private static isRunning: boolean = false;
 
-  /**
-   * Rate of polling
-   */
-  private static RATE: number = 5000;
+  //TODO: Move to database!!
+  public static isCallbacksRunning: boolean = false;
+  private static callbacks: NewDeviceCallback[] = [];
 
-  /**
-   * Is polling right now
-   */
-  private static isPolling: boolean = false;
-
-  /**
-   * Array of callback for
-   */
-  private static callbacks: DeviceCallback[] = [];
-
-  public static get Devices() {
-    return WiFiService.devices;
+  public static get Devices(): Promise<Device[]> {
+    return Device.find();
   }
 
-  public static setPollingRate(rate: number): void {
-    WiFiService.RATE = rate;
+  public static start(): void {
+    WiFiService.isRunning = true;
+    void WiFiService.backgroundService();
+  }
+  public static stop(): void {
+    WiFiService.isRunning = false;
   }
 
-  private constructor(initialDevices: IDevice[]) {
-    WiFiService.devices = initialDevices ?? [];
-    void WiFiService.backgroundTasks();
-  }
-
-  public static async init(): Promise<void> {
-    new WiFiService(await getDeviceList());
-  }
-
-  public static startPolling(): void {
-    WiFiService.isPolling = true;
-  }
-  public static stopPolling(): void {
-    WiFiService.isPolling = false;
-  }
-  private static async findNewDevices(): Promise<void> {
-    const newDevices = await getDeviceList();
-    const deviceDiff = getDeviceDiff(WiFiService.devices, newDevices);
-
-    if (deviceDiff.length) {
-      WiFiService.callbacks.forEach((c) => c(deviceDiff));
-    }
-    WiFiService.devices = newDevices;
-  }
-
-  public static onNewDevicesFinded(callback: DeviceCallback) {
+  public static onNewDevicesFinded(callback: NewDeviceCallback) {
     WiFiService.callbacks.push(callback);
   }
 
-  private static async backgroundTasks(): Promise<void> {
-    const tasks = [WiFiService.findNewDevices];
-    const executeAllTasks = (t: typeof tasks) => t.map((t) => t());
-    while (true) {
-      await delay(WiFiService.RATE);
-      if (WiFiService.isPolling) {
-        await Promise.all(executeAllTasks(tasks));
-      }
+  private static async backgroundService(): Promise<void> {
+    while (WiFiService.isRunning) {
+      console.log("Checking devices changes");
+
+      const previousDevices = await WiFiService.Devices;
+      const currentDevices = await findAndUpdateDevices();
+
+      const changedDevices = previousDevices.filter(
+        (d) =>
+          isNewDevice(currentDevices, d) ||
+          isDeviceWithChangedStatus(currentDevices, d)
+      );
+
+      const devicesToReport = await Device.find({
+        where: { mac: changedDevices.map((d) => d.mac) },
+      });
+
+      if (WiFiService.isCallbacksRunning)
+        await Promise.all(WiFiService.callbacks.map((c) => c(devicesToReport)));
+
+      await delay(5000);
+      console.clear();
     }
   }
 }

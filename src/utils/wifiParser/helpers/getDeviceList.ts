@@ -1,22 +1,26 @@
 import findLocalDevices, { IDevice } from "local-devices";
 import { Device } from "@Entities/Device";
 
-const findOrCreateNewDevice = ({ ip, mac, name }: IDevice): Promise<Device> =>
-  Device.findOne({ where: { ip } }).then(
-    (dbDevice) =>
-      dbDevice ?? Device.create({ ip, mac, name: name ?? "Unknown" }).save()
+const setDevicesConnectionsFalse = (devices: Device[]): Promise<Device>[] =>
+  devices.map((d) => {
+    d.connected = false;
+    return d.save();
+  });
+
+const findOrCreateNewDevice = async (d: IDevice): Promise<Device> => {
+  await Promise.all(await Device.find().then(setDevicesConnectionsFalse));
+  const device = await Device.findOne({ where: { mac: d.mac } }).then(
+    (dbDevice) => dbDevice ?? Device.createFromIDevice(d)
   );
-
-export const getDeviceList = async (): Promise<Device[]> => {
-  const devices = await findLocalDevices();
-
-  const filledNames = await Promise.all(devices.map(findOrCreateNewDevice));
-
-  return filledNames;
+  device.connected = true;
+  await device.save();
+  return device;
 };
 
-export const prettifyDeviceNames = (devices: IDevice[]): string => {
-  const prettifyDeviceName = (d: IDevice) => `${d.name} - ${d.ip} \n`;
-  const prettifyedNames = devices.map(prettifyDeviceName).join("");
-  return prettifyedNames;
+export const findAndUpdateDevices = async (): Promise<Device[]> => {
+  const devices = await findLocalDevices();
+
+  await Promise.all(devices.map(findOrCreateNewDevice));
+
+  return await Device.find();
 };

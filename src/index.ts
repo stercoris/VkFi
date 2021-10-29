@@ -4,13 +4,18 @@ import { VK } from "vk-io";
 import { Config } from "@Config";
 import { WiFiService } from "@Utils/wifiParser";
 import { randomInt } from "crypto";
-import { DeviceWithStatus } from "@Utils/wifiParser/helpers/getDeviceDifference";
 import { createConnection } from "typeorm";
+import { Device } from "@Entities/Device";
 
 const vk = new VK({
   token: Config.TOKEN,
   pollingGroupId: Config.GROUP_ID,
 });
+
+const prettifyNewDeviceMessage = (d: Device): string =>
+  `DEVICE: ${d.name} WITH IP: ${d.ip} ${
+    d.connected ? "Connected" : "Disconnected"
+  } \n`;
 
 const sendMessage = (message: string) =>
   vk.api.messages.send({
@@ -19,19 +24,15 @@ const sendMessage = (message: string) =>
     random_id: randomInt(281474976710655),
   });
 
-const prettifyNewDeviceMessage = (d: DeviceWithStatus) =>
-  `DEVICE: ${d.device.name} WITH IP: ${d.device.ip} ${d.status} \n`;
-
 (async () => {
   await createConnection();
   vk.updates.on("message_new", RootMiddleware);
 
-  await WiFiService.init();
-  WiFiService.setPollingRate(5000);
-  WiFiService.startPolling();
-
-  WiFiService.onNewDevicesFinded((devises) =>
-    sendMessage(devises.map(prettifyNewDeviceMessage).join(""))
+  WiFiService.start();
+  WiFiService.onNewDevicesFinded(
+    (devices) =>
+      devices.length &&
+      sendMessage(devices.map(prettifyNewDeviceMessage).join(""))
   );
 
   vk.updates.start();
