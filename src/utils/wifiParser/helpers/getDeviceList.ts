@@ -1,11 +1,10 @@
 import findLocalDevices, { IDevice } from "local-devices";
 import { Device } from "@Entities/Device";
 
-const findOrCreateNewDevice = (d: IDevice): Promise<Device> =>
-  Device.findOne({ where: { id: d.ip } }).then(
+const findOrCreateNewDevice = ({ ip, mac, name }: IDevice): Promise<Device> =>
+  Device.findOne({ where: { ip } }).then(
     (dbDevice) =>
-      dbDevice ??
-      Device.create({ ip: d.ip, mac: d.mac, name: "Unknown" }).save()
+      dbDevice ?? Device.create({ ip, mac, name: name ?? "Unknown" }).save()
   );
 
 export const getDeviceList = async (): Promise<Device[]> => {

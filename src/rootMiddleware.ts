@@ -2,9 +2,12 @@ import { createBuilder, createMiddleware } from "r1-io";
 import { User } from "@Entities/User";
 import { MainMenu, Menus, SettingsMenu } from "@Routes/private";
 import { DevicesMenu } from "@Routes/private/DevicesMenu/DevicesMenu";
+import { MessageContext } from "r1-io/node_modules/vk-io";
+import { setDeviceName } from "@Actions/setDeviceName";
 
 export interface BotContext {
   user: User;
+  context: MessageContext;
 }
 
 const router = createBuilder<BotContext, Menus>(
@@ -17,9 +20,13 @@ const router = createBuilder<BotContext, Menus>(
     },
     [Menus.DevicesMenu]: {
       build: DevicesMenu,
+      fallbackAction: setDeviceName(),
     },
   },
-  ({ user }) => user.selectedMenu
+  ({ user }) => {
+    console.log(user.selectedMenu);
+    return user.selectedMenu;
+  }
 );
 
 const beautyLog = (message: string) =>
@@ -35,12 +42,9 @@ const findOrCreateNewUser = async (vkId: number) => {
   return user;
 };
 
-export const RootMiddleware = createMiddleware(
-  router,
-  async ({ senderId, text }) => {
-    beautyLog(JSON.stringify(text));
+export const RootMiddleware = createMiddleware(router, async (context) => {
+  beautyLog(JSON.stringify(context.text));
 
-    const user = await findOrCreateNewUser(senderId);
-    return { user };
-  }
-);
+  const user = await findOrCreateNewUser(context.senderId);
+  return { user, context };
+});

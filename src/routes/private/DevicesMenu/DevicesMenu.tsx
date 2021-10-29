@@ -5,7 +5,7 @@ import { NavigationButton } from "@Components/Helpers/NavigationButton";
 import { startSetDeviceName } from "@Actions/setDeviceName";
 import { Menus } from "@Routes/private";
 
-export const DevicesMenu: R1IO.FC<BotContext> = async () => {
+export const DevicesMenu: R1IO.FC<BotContext> = async ({ context, user }) => {
   const devices = WiFiService.Devices;
 
   const devicesButtons = devices.map((d) => (

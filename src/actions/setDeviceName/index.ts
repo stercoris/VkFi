@@ -3,3 +3,4 @@ export const SET_DEVICE_NAME = {
   SET: "set name",
 };
 export { startSetDeviceName } from "./startSetDeviceName";
+export { setDeviceName } from "./setDeviceName";

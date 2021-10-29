@@ -8,6 +8,6 @@ export const startSetDeviceName = createParametarizedAction<
   IDevice
 >(SET_DEVICE_NAME.START_SETTING, async (device, { send }, { user }) => {
   user.isSettingDeviceName = device.ip;
-  user.save();
+  await user.save();
   send("Send device name");
 });
