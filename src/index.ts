@@ -1,9 +1,11 @@
+import "reflect-metadata";
 import { RootMiddleware } from "@Root";
 import { VK } from "vk-io";
 import { Config } from "@Config";
 import { WiFiService } from "@Utils/wifiParser";
 import { randomInt } from "crypto";
 import { DeviceWithStatus } from "@Utils/wifiParser/helpers/getDeviceDifference";
+import { createConnection } from "typeorm";
 
 const vk = new VK({
   token: Config.TOKEN,
@@ -21,6 +23,7 @@ const prettifyNewDeviceMessage = (d: DeviceWithStatus) =>
   `DEVICE: ${d.device.name} WITH IP: ${d.device.ip} ${d.status} \n`;
 
 (async () => {
+  await createConnection();
   vk.updates.on("message_new", RootMiddleware);
 
   await WiFiService.init();

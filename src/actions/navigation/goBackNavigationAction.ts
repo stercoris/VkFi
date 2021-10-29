@@ -1,6 +1,6 @@
 import { NAVIGATION } from "@Actions/navigation";
-import { fakeUser, BotContext } from "@Root";
-import { User } from "IUser";
+import { BotContext } from "@Root";
+import { User } from "@Entities/User";
 import { createAction } from "r1-io";
 
 const swapUserMenus = (u: User) =>
@@ -8,8 +8,9 @@ const swapUserMenus = (u: User) =>
 
 export const goToPrevMenuAction = createAction<BotContext>(
   NAVIGATION.GO_BACK,
-  async (context) => {
-    swapUserMenus(fakeUser);
-    context.send(`Welcome to ${fakeUser.selectedMenu}`);
+  async (context, { user }) => {
+    swapUserMenus(user);
+    user.save();
+    context.send(`Welcome to ${user.selectedMenu}`);
   }
 );

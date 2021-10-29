@@ -3,21 +3,21 @@ import { changeMailingTime } from "@Actions/mailingTime";
 import R1IO from "r1-io";
 
 interface ArrowButtonsProps {
-  difTime: number;
+  difTime: { left: number; right: number };
   symbol: string;
   color: JSX.ButtonColor;
 }
 
 export const ArrowButtonsRow: R1IO.FC<ArrowButtonsProps> = ({
-  difTime,
+  difTime: { left, right },
   symbol,
   color,
 }) => (
   <row>
-    <button onClick={changeIntervalTime(difTime)} color={color}>
+    <button onClick={changeIntervalTime(left)} color={color}>
       {symbol}
     </button>
-    <button onClick={changeMailingTime(difTime)} color={color}>
+    <button onClick={changeMailingTime(right)} color={color}>
       {symbol}
     </button>
   </row>

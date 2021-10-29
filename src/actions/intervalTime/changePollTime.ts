@@ -6,6 +6,7 @@ export const changeIntervalTime = createParametarizedAction<BotContext, number>(
   POLLING.CHANGE_TIME,
   async (timeDif, { send }, { user }) => {
     user.pullInteval += timeDif;
+    user.save();
     send("Your pull inteval time was changed");
   }
 );

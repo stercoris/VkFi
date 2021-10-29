@@ -1,7 +1,8 @@
 import R1IO from "r1-io";
-import { BotContext, Menus } from "@Root";
+import { BotContext } from "@Root";
 import { TimePickerFragmentRows } from "@Components/TimePicker/TimePicker";
 import { NavigationButton } from "@Components/Helpers/NavigationButton";
+import { Menus } from "@Routes/private";
 
 export const SettingsMenu: R1IO.FC<BotContext> = ({ user }) => {
   return (

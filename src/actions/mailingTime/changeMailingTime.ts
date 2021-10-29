@@ -6,6 +6,7 @@ export const changeMailingTime = createParametarizedAction<BotContext, number>(
   MAILING.CHANGE_TIME,
   async (timeDif, { send }, { user }) => {
     user.mailingInterval += timeDif;
+    user.save();
     send("Your mailing time time was changed");
   }
 );

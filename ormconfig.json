@@ -1,0 +1,8 @@
+{
+  "type": "sqlite",
+  "database": "vk.db",
+  "autoSchemaSync": true,
+  "logging": false,
+  "synchronize": true,
+  "entities": ["src/entities/**/*.ts"]
+}

@@ -1,6 +1,7 @@
 import R1IO from "r1-io";
-import { BotContext, Menus } from "@Root";
+import { BotContext } from "@Root";
 import { NavigationButton } from "@Components/Helpers/NavigationButton";
+import { Menus } from "@Routes/private";
 
 export const MainMenu: R1IO.FC<BotContext> = () => (
   <menu>

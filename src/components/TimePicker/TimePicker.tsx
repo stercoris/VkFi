@@ -1,7 +1,8 @@
 import { ArrowButtonsRow } from "./ArrowButtons";
-import { User } from "IUser";
+import { User } from "@Entities/User";
 import R1IO from "r1-io";
 import { ButtonColor } from "vk-io";
+import { msToTime } from "@Components/TimePicker/timeHepler";
 
 interface TimePickerProps {
   user: User;
@@ -10,19 +11,30 @@ interface TimePickerProps {
 export const TimePickerFragmentRows: R1IO.FC<TimePickerProps> = async ({
   user,
 }) => {
+  const pullIntevalParsed = msToTime(user.pullInteval);
+  const mailingIntevalParsed = msToTime(user.mailingInterval);
   return (
     <>
-      <ArrowButtonsRow difTime={1} symbol="▲" color={ButtonColor.PRIMARY} />
+      <ArrowButtonsRow
+        difTime={{ left: 60000, right: 60000 * 60 }}
+        symbol="▲"
+        color={ButtonColor.PRIMARY}
+      />
       <row>
         <button
           color={ButtonColor.SECONDARY}
-        >{`Interval:  ${user.pullInteval}:00`}</button>
-
+          label={`Interval:  ${pullIntevalParsed}`}
+        />
         <button
           color={ButtonColor.SECONDARY}
-        >{`Mailing time:  ${user.mailingInterval}:00`}</button>
+          label={`Mailing time:  ${mailingIntevalParsed}`}
+        />
       </row>
-      <ArrowButtonsRow difTime={-1} symbol="▼" color={ButtonColor.PRIMARY} />
+      <ArrowButtonsRow
+        difTime={{ left: -60000, right: -60000 * 60 }}
+        symbol="▼"
+        color={ButtonColor.PRIMARY}
+      />
     </>
   );
 };

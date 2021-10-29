@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "module": "CommonJS",
     "target": "ESNext",
     "jsx": "react",
@@ -15,8 +17,10 @@
     "allowUmdGlobalAccess": true,
     "strict": true,
     "esModuleInterop": true,
+    "strictPropertyInitialization": false,
     "paths": {
       "@Actions/*": ["actions/*"],
+      "@Entities/*": ["entities/*"],
       "@Components/*": ["components/*"],
       "@Routes/*": ["routes/*"],
       "@Utils/*": ["utils/*"],
