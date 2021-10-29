@@ -1,10 +1,5 @@
 import findLocalDevices, { IDevice } from "local-devices";
-import colorsJson from "devices.json";
 import { Device } from "@Entities/Device";
-
-type MyDevices = { [key: string]: string };
-
-const myDevices: MyDevices = colorsJson;
 
 const findOrCreateNewDevice = (d: IDevice): Promise<Device> =>
   Device.findOne({ where: { id: d.ip } }).then(
