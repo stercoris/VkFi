@@ -23,10 +23,7 @@ const router = createBuilder<BotContext, Menus>(
       fallbackAction: setDeviceName(),
     },
   },
-  ({ user }) => {
-    console.log(user.selectedMenu);
-    return user.selectedMenu;
-  }
+  ({ user }) => user.selectedMenu
 );
 
 const beautyLog = (message: string) =>
