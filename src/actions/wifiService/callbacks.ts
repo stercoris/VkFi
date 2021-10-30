@@ -12,5 +12,5 @@ export const wifiServiceCallbacksSet = createParametarizedAction<
 >(WIFI_SERVICE.CALLBACKS, async ({ enabled }, { send }, { user }) => {
   user.isNotificationsEnabled = enabled;
   await user.save();
-  send(`Notifications is ${enabled ? "enabled" : "disabled"}`);
+  send(`Уведомления ${enabled ? "включены" : "выключены"}`);
 });

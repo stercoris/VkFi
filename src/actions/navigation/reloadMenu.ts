@@ -4,5 +4,5 @@ import { createAction } from "r1-io";
 
 export const reloadMenuAction = createAction<BotContext>(
   NAVIGATION.RELOAD,
-  ({ send }) => send(`Refreshed`)
+  ({ send }) => send(`Обновлено`)
 );

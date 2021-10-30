@@ -10,7 +10,7 @@ export const goToPrevMenuAction = createAction<BotContext>(
   NAVIGATION.GO_BACK,
   async (context, { user }) => {
     swapUserMenus(user);
-    user.save();
-    context.send(`Welcome to ${user.selectedMenu}`);
+    await user.save();
+    context.send(`Выберите опцию`);
   }
 );

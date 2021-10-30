@@ -8,6 +8,7 @@ const userTakesStepDown = (unterval: number, diff: number) =>
 const userTakesStepUp = (unterval: number, diff: number) =>
   unterval < 60000 && unterval + diff > 60000;
 
+// Pls do not review this code
 export const changeIntervalTime = createParametarizedAction<BotContext, number>(
   POLLING.CHANGE_TIME,
   async (timeDif, { send }, { user }) => {
@@ -25,6 +26,6 @@ export const changeIntervalTime = createParametarizedAction<BotContext, number>(
       user.pullInteval += timeDif;
     }
     user.save();
-    send("Your pull inteval time was changed");
+    send("Ваш интервал проверки был изменен");
   }
 );

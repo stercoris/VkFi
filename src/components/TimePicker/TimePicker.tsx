@@ -26,7 +26,7 @@ export const TimePickerFragmentRows: R1IO.FC<TimePickerProps> = async ({
       <row>
         <button
           color={ButtonColor.SECONDARY}
-          label={`Interval:  ${pullIntevalParsed}`}
+          label={`WiFi Интервал:  ${pullIntevalParsed}`}
         />
       </row>
       <row>

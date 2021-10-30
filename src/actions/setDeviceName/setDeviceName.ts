@@ -22,7 +22,7 @@ export const setDeviceName = createAction<BotContext>(
       await user.save();
       await device.save();
 
-      send("Device name successfully changed");
+      send("Име девайса успешно изменено");
     }
   }
 );

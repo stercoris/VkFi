@@ -7,6 +7,6 @@ export const startSetDeviceName = createParametarizedAction<BotContext, string>(
   async (deviceIP, { send }, { user }) => {
     user.isSettingDeviceName = deviceIP;
     await user.save();
-    send("Send device name");
+    send("Отправьте имя девайса");
   }
 );

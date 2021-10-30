@@ -8,7 +8,7 @@ export const goToMenuAction = createParametarizedAction<BotContext, Menus>(
   async (menu, { send }, { user }) => {
     user.previousMenu = user.selectedMenu;
     user.selectedMenu = menu;
-    user.save();
-    send(`Welcome to ${user.selectedMenu}`);
+    await user.save();
+    send(`Выберите опцию ${user.selectedMenu}`);
   }
 );
