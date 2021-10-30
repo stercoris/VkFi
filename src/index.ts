@@ -6,6 +6,7 @@ import { WiFiService } from "@Utils/wifiParser";
 import { randomInt } from "crypto";
 import { createConnection } from "typeorm";
 import { Device } from "@Entities/Device";
+import { User } from "@Entities/User";
 
 const vk = new VK({
   token: Config.TOKEN,
@@ -29,10 +30,11 @@ const sendMessage = (message: string) =>
   vk.updates.on("message_new", RootMiddleware);
 
   WiFiService.start();
-  WiFiService.onNewDevicesFinded(
-    (devices) =>
-      devices.length &&
-      sendMessage(devices.map(prettifyNewDeviceMessage).join(""))
+  WiFiService.onNewDevicesFinded((devices) =>
+    User.Master.then((master) => {
+      if (master.isNotificationsEnabled && devices.length)
+        sendMessage(devices.map(prettifyNewDeviceMessage).join(""));
+    })
   );
 
   vk.updates.start();

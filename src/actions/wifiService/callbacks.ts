@@ -1,6 +1,5 @@
 import { WIFI_SERVICE } from "@Actions/wifiService";
 import { BotContext } from "@Root";
-import { WiFiService } from "@Utils/wifiParser";
 import { createParametarizedAction } from "r1-io";
 
 interface WifiServiceCallbacksSet {
@@ -10,7 +9,8 @@ interface WifiServiceCallbacksSet {
 export const wifiServiceCallbacksSet = createParametarizedAction<
   BotContext,
   WifiServiceCallbacksSet
->(WIFI_SERVICE.CALLBACKS, async ({ enabled }, { send }) => {
-  WiFiService.isCallbacksRunning = enabled;
+>(WIFI_SERVICE.CALLBACKS, async ({ enabled }, { send }, { user }) => {
+  user.isNotificationsEnabled = enabled;
+  await user.save();
   send(`Notifications is ${enabled ? "enabled" : "disabled"}`);
 });

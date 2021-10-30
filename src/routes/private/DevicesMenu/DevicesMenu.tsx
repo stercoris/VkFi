@@ -7,8 +7,9 @@ import { Menus } from "@Routes/private";
 import { ButtonColor } from "vk-io";
 import { reloadMenuAction } from "@Actions/navigation";
 import { wifiServiceCallbacksSet } from "@Actions/wifiService";
+import { User } from "@Entities/User";
 
-export const DevicesMenu: R1IO.FC<BotContext> = async () => {
+export const DevicesMenu: R1IO.FC<BotContext> = async ({ user }) => {
   const devices = await WiFiService.Devices;
 
   const devicesButtons = devices.map((d) => (
@@ -27,7 +28,7 @@ export const DevicesMenu: R1IO.FC<BotContext> = async () => {
       {devicesButtons as any}
       <row>
         <button onClick={reloadMenuAction()}>Refresh</button>
-        {WiFiService.isCallbacksRunning ? (
+        {user.isNotificationsEnabled ? (
           <button
             onClick={wifiServiceCallbacksSet({ enabled: false })}
             color={ButtonColor.NEGATIVE}

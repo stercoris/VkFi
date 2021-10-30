@@ -1,3 +1,4 @@
+import { Config } from "@Config";
 import { Menus } from "@Routes/private";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
@@ -26,4 +27,11 @@ export class User extends BaseEntity {
 
   @Column({ default: Menus.MainMenu })
   previousMenu: Menus;
+
+  @Column({ default: false })
+  isNotificationsEnabled: boolean;
+
+  public static get Master(): Promise<User> {
+    return User.findOneOrFail({ where: { vkId: Config.MASTER_ID } });
+  }
 }

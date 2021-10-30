@@ -15,8 +15,6 @@ type NewDeviceCallback = (d: Device[]) => unknown | Promise<unknown>;
 export class WiFiService {
   private static isRunning: boolean = false;
 
-  //TODO: Move to database!!
-  public static isCallbacksRunning: boolean = false;
   private static callbacks: NewDeviceCallback[] = [];
 
   public static get Devices(): Promise<Device[]> {
@@ -37,8 +35,6 @@ export class WiFiService {
 
   private static async backgroundService(): Promise<void> {
     while (WiFiService.isRunning) {
-      console.log("Checking devices changes");
-
       const previousDevices = await WiFiService.Devices;
       const currentDevices = await findAndUpdateDevices();
 
@@ -52,11 +48,9 @@ export class WiFiService {
         where: { mac: changedDevices.map((d) => d.mac) },
       });
 
-      if (WiFiService.isCallbacksRunning)
-        await Promise.all(WiFiService.callbacks.map((c) => c(devicesToReport)));
+      await Promise.all(WiFiService.callbacks.map((c) => c(devicesToReport)));
 
       await delay(5000);
-      console.clear();
     }
   }
 }
