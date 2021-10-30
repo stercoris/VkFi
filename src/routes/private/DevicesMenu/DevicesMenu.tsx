@@ -32,16 +32,14 @@ export const DevicesMenu: R1IO.FC<BotContext> = async ({ user }) => {
           <button
             onClick={wifiServiceCallbacksSet({ enabled: false })}
             color={ButtonColor.NEGATIVE}
-          >
-            Выключить уведомления
-          </button>
+            label={"Выключить уведомления"}
+          />
         ) : (
           <button
             onClick={wifiServiceCallbacksSet({ enabled: true })}
             color={ButtonColor.PRIMARY}
-          >
-            Включить уведомления
-          </button>
+            label={"Включить уведомления"}
+          />
         )}
       </row>
       <row>

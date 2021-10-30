@@ -3,7 +3,6 @@ import { Menus } from "@Routes/private";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 const MINUTE = 1000 * 60;
-const HOUR = MINUTE * 60;
 
 @Entity()
 export class User extends BaseEntity {
