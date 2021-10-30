@@ -26,6 +26,7 @@
       "@Utils/*": ["utils/*"],
 
       "@Root": ["./rootMiddleware"],
+
       "@ConfigJSON": ["../config.json"],
       "@Config": ["config/Config"]
     }

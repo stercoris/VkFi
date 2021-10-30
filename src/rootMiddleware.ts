@@ -2,7 +2,7 @@ import { createBuilder, createMiddleware } from "r1-io";
 import { User } from "@Entities/User";
 import { MainMenu, Menus, SettingsMenu } from "@Routes/private";
 import { DevicesMenu } from "@Routes/private/DevicesMenu/DevicesMenu";
-import { MessageContext } from "r1-io/node_modules/vk-io";
+import { MessageContext } from "vk-io";
 import { setDeviceName } from "@Actions/setDeviceName";
 
 export interface BotContext {
