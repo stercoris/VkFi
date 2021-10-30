@@ -1,19 +1,26 @@
-# !!IN_DEVELOPMENT!!
-
 # VK-Fi
 
-- Simple vk bot based on my own [r1-io](based on [vk-io]) to help monitor your Wi-Fi network
+- Simple vk bot based on my own [r1-io](based on [vk-io]) library to help monitor your Wi-Fi network
 
 ## Menus :
+
 - Main Menu:
-![vk1](img/vk1.png)
+  <hr>
+
+  ![vk1](img/keyboard_screen_main_menu.png)
+  <hr>
+
 - Settings Menu:
-![vk2](img/vk2.png)
+  <hr>
 
-## Setup
-```
-$ there will be setup of this repo
-```
+  ![vk2](img/keyboard_screen_settings_menu.png)
+  <hr>
 
-[r1-io]: <https://github.com/stercoris/r1-io>
-[vk-io]: <https://github.com/negezor/vk-io>
+- Devices Menu:
+  <hr>
+
+  ![vk3](img/keyboard_screen_devices_menu.png)
+  <hr>
+
+[r1-io]: https://github.com/stercoris/r1-io
+[vk-io]: https://github.com/negezor/vk-io
