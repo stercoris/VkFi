@@ -8,7 +8,6 @@ const setDevicesConnectionsFalse = (devices: Device[]): Promise<Device>[] =>
   });
 
 const findOrCreateNewDevice = async (d: IDevice): Promise<Device> => {
-  await Promise.all(await Device.find().then(setDevicesConnectionsFalse));
   const device = await Device.findOne({ where: { mac: d.mac } }).then(
     (dbDevice) => dbDevice ?? Device.createFromIDevice(d)
   );
@@ -20,6 +19,7 @@ const findOrCreateNewDevice = async (d: IDevice): Promise<Device> => {
 export const findAndUpdateDevices = async (): Promise<Device[]> => {
   const devices = await findLocalDevices();
 
+  await Promise.all(await Device.find().then(setDevicesConnectionsFalse));
   await Promise.all(devices.map(findOrCreateNewDevice));
 
   return await Device.find();
