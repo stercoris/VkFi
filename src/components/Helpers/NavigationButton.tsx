@@ -5,16 +5,18 @@ import { Menus } from "@Routes/private";
 
 interface NavigationButtonProps {
   menu: Menus;
+  color?: ButtonColor;
   children: string;
 }
 
 export const NavigationButton: R1IO.FC<NavigationButtonProps> = ({
   children,
+  color,
   menu,
 }) => (
   <button
     onClick={goToMenuAction(menu)}
-    color={ButtonColor.NEGATIVE}
+    color={color ?? ButtonColor.NEGATIVE}
     label={children}
   />
 );
