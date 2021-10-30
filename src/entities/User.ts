@@ -13,9 +13,6 @@ export class User extends BaseEntity {
   @Column()
   vkId: number;
 
-  @Column({ default: HOUR * 5 })
-  mailingInterval: number;
-
   @Column({ default: MINUTE })
   pullInteval: number;
 

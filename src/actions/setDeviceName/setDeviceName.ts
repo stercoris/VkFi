@@ -17,6 +17,9 @@ export const setDeviceName = createAction<BotContext>(
 
       device.name = text ?? "Unknown";
 
+      user.isSettingDeviceName = "";
+
+      await user.save();
       await device.save();
 
       send("Device name successfully changed");

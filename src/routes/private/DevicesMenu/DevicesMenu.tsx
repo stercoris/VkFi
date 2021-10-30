@@ -7,25 +7,25 @@ import { Menus } from "@Routes/private";
 import { ButtonColor } from "vk-io";
 import { reloadMenuAction } from "@Actions/navigation";
 import { wifiServiceCallbacksSet } from "@Actions/wifiService";
-import { User } from "@Entities/User";
+import { Device } from "@Entities/Device";
+
+const getDevicesButtons = async (devices: Device[]) =>
+  devices.map(async (d) => (
+    <row>
+      <button
+        onClick={startSetDeviceName(d.ip)}
+        color={d.connected ? ButtonColor.POSITIVE : ButtonColor.NEGATIVE}
+        label={`Name: ${d.name}, IP: ${d.ip}`}
+      />
+    </row>
+  ));
 
 export const DevicesMenu: R1IO.FC<BotContext> = async ({ user }) => {
   const devices = await WiFiService.Devices;
 
-  const devicesButtons = devices.map((d) => (
-    <row>
-      <button
-        onClick={startSetDeviceName(d)}
-        color={d.connected ? ButtonColor.POSITIVE : ButtonColor.NEGATIVE}
-      >
-        Name: {d.name}, IP: {d.ip}
-      </button>
-    </row>
-  ));
-
   return (
     <menu>
-      {devicesButtons as any}
+      {await getDevicesButtons(devices)}
       <row>
         <button onClick={reloadMenuAction()}>Refresh</button>
         {user.isNotificationsEnabled ? (

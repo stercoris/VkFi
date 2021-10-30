@@ -1,4 +1,5 @@
 import { Device } from "@Entities/Device";
+import { User } from "@Entities/User";
 import { delay } from "@Utils/delay";
 import { findAndUpdateDevices } from "@Utils/wifiParser";
 
@@ -50,7 +51,7 @@ export class WiFiService {
 
       await Promise.all(WiFiService.callbacks.map((c) => c(devicesToReport)));
 
-      await delay(5000);
+      await delay((await User.Master).pullInteval);
     }
   }
 }

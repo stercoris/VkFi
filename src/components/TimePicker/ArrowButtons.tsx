@@ -1,24 +1,21 @@
-import { changeIntervalTime } from "@Actions/intervalTime";
-import { changeMailingTime } from "@Actions/mailingTime";
 import R1IO from "r1-io";
+import { ParameterizedActionPayload, SimpleActionPayload } from "r1-io";
+import { ButtonColor } from "vk-io";
 
 interface ArrowButtonsProps {
-  difTime: { left: number; right: number };
-  symbol: string;
-  color: JSX.ButtonColor;
+  action: ParameterizedActionPayload<any> | SimpleActionPayload;
+  direction: "up" | "down";
+  color: ButtonColor;
 }
 
-export const ArrowButtonsRow: R1IO.FC<ArrowButtonsProps> = ({
-  difTime: { left, right },
-  symbol,
+export const ArrowButton: R1IO.FC<ArrowButtonsProps> = ({
+  action,
+  direction,
   color,
 }) => (
-  <row>
-    <button onClick={changeIntervalTime(left)} color={color}>
-      {symbol}
-    </button>
-    <button onClick={changeMailingTime(right)} color={color}>
-      {symbol}
-    </button>
-  </row>
+  <button
+    onClick={action}
+    color={color}
+    label={direction === "down" ? "▼" : "▲"}
+  />
 );
