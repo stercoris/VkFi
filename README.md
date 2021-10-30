@@ -1,4 +1,4 @@
-# VK-Fi
+# VkFi
 
 - Simple vk bot based on my own [r1-io](based on [vk-io]) library to help monitor your Wi-Fi network
 
