@@ -15,7 +15,7 @@ const getDevicesButtons = async (devices: Device[]) =>
       <button
         onClick={startSetDeviceName(d.ip)}
         color={d.connected ? ButtonColor.POSITIVE : ButtonColor.NEGATIVE}
-        label={`Name: ${d.name}, IP: ${d.ip}`}
+        label={`Имя: ${d.name}, IP: ${d.ip}`}
       />
     </row>
   ));
@@ -27,20 +27,20 @@ export const DevicesMenu: R1IO.FC<BotContext> = async ({ user }) => {
     <menu>
       {await getDevicesButtons(devices)}
       <row>
-        <button onClick={reloadMenuAction()}>Refresh</button>
+        <button onClick={reloadMenuAction()}>Обновить</button>
         {user.isNotificationsEnabled ? (
           <button
             onClick={wifiServiceCallbacksSet({ enabled: false })}
             color={ButtonColor.NEGATIVE}
           >
-            Disable Notifications
+            Выключить уведомления
           </button>
         ) : (
           <button
             onClick={wifiServiceCallbacksSet({ enabled: true })}
             color={ButtonColor.PRIMARY}
           >
-            Enable Notifications
+            Включить уведомления
           </button>
         )}
       </row>

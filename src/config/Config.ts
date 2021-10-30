@@ -1,4 +1,4 @@
-import configJson from "config.json";
+import configJson from "@ConfigJSON";
 
 type ConfigType = {
   group_id: number;

@@ -11,7 +11,7 @@
     "removeComments": true,
     "sourceMap": true,
     "baseUrl": "./src",
-    "rootDir": "./src",
+    "rootDir": "./",
     "resolveJsonModule": true,
     "outDir": "./build",
     "allowUmdGlobalAccess": true,
@@ -26,6 +26,7 @@
       "@Utils/*": ["utils/*"],
 
       "@Root": ["./rootMiddleware"],
+      "@ConfigJSON": ["../config.json"],
       "@Config": ["config/Config"]
     }
   }
