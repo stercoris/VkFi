@@ -2,12 +2,10 @@ import { createBuilder, createMiddleware } from "r1-io";
 import { User } from "@Entities/User";
 import { MainMenu, Menus, SettingsMenu } from "@Routes/private";
 import { DevicesMenu } from "@Routes/private/DevicesMenu/DevicesMenu";
-import { MessageContext } from "vk-io";
 import { setDeviceName } from "@Actions/setDeviceName";
 
 export interface BotContext {
   user: User;
-  context: MessageContext;
 }
 
 const router = createBuilder<BotContext, Menus>(

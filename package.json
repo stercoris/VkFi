@@ -7,7 +7,9 @@
   "private": false,
   "scripts": {
     "postinstall": "patch-package",
-    "watch": "tsc-watch --p tsconfig.json --onSuccess 'ts-node -r tsconfig-paths/register src/index.ts && nodemon ./build/index.js'"
+		"build": "ts-node -r tsconfig-paths/register src/index.ts",
+		"start": "nodemon ./build/index.js",
+    "watch": "tsc-watch --p tsconfig.json --onSuccess 'yarn build && yarn start'"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
@@ -16,8 +18,6 @@
     "jest": "^27.0.1",
     "jest-environment-node": "^26.1.0",
     "nodemon": "^2.0.7",
-    "patch-package": "^6.4.7",
-    "postinstall-postinstall": "^2.1.0",
     "ts-node": "^10.1.0",
     "tsc-watch": "^4.4.0",
     "tsconfig-paths": "^3.10.1",
@@ -27,7 +27,7 @@
     "@vk-io/hear": "^1.1.0",
     "dotenv": "^10.0.0",
     "local-devices": "^3.1.0",
-    "r1-io": "^1.0.5",
+    "r1-io": "^1.0.12",
     "sqlite3": "^5.0.2",
     "ts-jest": "^27.0.1",
     "typeorm": "^0.2.38",
