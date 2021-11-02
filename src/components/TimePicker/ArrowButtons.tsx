@@ -1,9 +1,8 @@
 import R1IO from "r1-io";
-import { ParameterizedActionPayload, SimpleActionPayload } from "r1-io";
 import { ButtonColor } from "vk-io";
 
 interface ArrowButtonsProps {
-  action: ParameterizedActionPayload<any> | SimpleActionPayload;
+  action: JSX.ActionPayload;
   direction: "up" | "down";
   color: ButtonColor;
 }
